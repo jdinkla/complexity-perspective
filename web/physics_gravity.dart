@@ -11,7 +11,7 @@
 import 'dart:math';
 
 num softeningSquared = 0.0;
-List<Kreis> kreise = [];
+List<Circle> objects = [];
 
 /*
  * Two dimensional Vector
@@ -45,72 +45,71 @@ Vector bodyBodyInteraction(Vector v, Vector w, num mass1) {
 /*
  *
  */
-class Kreis {
+class Circle {
 
-  String farbe;
-  int masse;
+  String color;
+  num mass;
   Vector position;
-  Vector richtung;
+  Vector velocity;
 
-  Kreis({farbe: "", masse: 0, position: Vector.origin, richtung: Vector.origin}) {
-    this.farbe = farbe;
-    this.masse = masse;
+  Circle({farbe: "", masse: 0, position: Vector.origin, richtung: Vector.origin}) {
+    this.color = farbe;
+    this.mass = masse;
     this.position = position;
-    this.richtung = richtung;
+    this.velocity = richtung;
   }
 
   dev_step() {
     Vector force = new Vector(0, 0);
-    kreise.forEach( (Kreis k) {
+    objects.forEach( (Circle k) {
       if (k != this) {
-        force += bodyBodyInteraction(position, k.position, k.masse);
+        force += bodyBodyInteraction(position, k.position, k.mass);
       }
     }
     );
     // force is the sum for all ks
-    num invMass = 1.0 / masse;
+    num invMass = 1.0 / mass;
     //num dt = 1.0;         // keep it simple, stupid
     //num damping = 1.0;    // keep it simple, stupid
     //var newVel = new Vector(force.x * invMass * dt, force.y * invMass * dt);
-    var newVel = richtung + new Vector(force.x * invMass, force.y * invMass);
+    var newVel = velocity + new Vector(force.x * invMass, force.y * invMass);
     // newVel *= damping
 //    var newPos = position + newVel * dt;
     var newPos = position + newVel;
     position = newPos;
-    richtung = newVel;
+    velocity = newVel;
   }
 
   step() {
     Vector force = new Vector(0, 0);
-    kreise.forEach( (Kreis k) {
+    objects.forEach( (Circle k) {
       if (k != this) {
-        force += bodyBodyInteraction(position, k.position, k.masse);
+        force += bodyBodyInteraction(position, k.position, k.mass);
       }
     });
-    // force ist die Summe der Kräfte, berechne neue Richtung und Position
-    richtung = richtung + new Vector(force.x / masse, force.y / masse);
-    position = position + richtung;
+    velocity = velocity + new Vector(force.x / mass, force.y / mass);
+    position = position + velocity;
   }
 
-  String toString() => "f: $farbe, m: $masse, pos: $position, richtung: $richtung";
+  String toString() => "f: $color, m: $mass, pos: $position, richtung: $velocity";
 
 }
 
 // runs maxT time steps all the elements in ks
 run(int maxT) {
   for (var t = 0; t < maxT; t++) {
-    print("t=$t: $kreise");
-    kreise.forEach((Kreis k) => k.step());
+    print("t=$t: $objects");
+    objects.forEach((Circle k) => k.step());
   }
 }
 
 runGravity() {
-  var u = new Kreis(farbe: "blau", masse: 3, position: new Vector(2, 1), richtung: new Vector(0, 2));
-  var v = new Kreis(farbe: "grau", masse: 4, position: new Vector(5, 3), richtung: new Vector(0, 0));
-  var w = new Kreis(farbe: "rot", masse: 2, position: new Vector(9, 4), richtung: new Vector(-1, -1));
+  var u = new Circle(farbe: "blau", masse: 3, position: new Vector(2, 1), richtung: new Vector(0, 2));
+  var v = new Circle(farbe: "grau", masse: 4, position: new Vector(5, 3), richtung: new Vector(0, 0));
+  var w = new Circle(farbe: "rot", masse: 2, position: new Vector(9, 4), richtung: new Vector(-1, -1));
 
-  kreise = [u, v, w];
-  print("Kreise: $kreise");
+  objects = [u, v, w];
+  print("Kreise: $objects");
   run(15);
 }
 

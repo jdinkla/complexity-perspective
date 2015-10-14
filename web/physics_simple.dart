@@ -8,8 +8,6 @@
  *
  */
 
-import 'dart:math';
-
 /*
  * Two dimensional Vector
  */
@@ -27,86 +25,71 @@ class Vector {
 
 }
 
-num distance(Vector a, Vector b) {
-  var dx = a.x - b.x;
-  var dy = a.y - b.y;
-  return sqrt(dx * dx + dy * dy);
-}
-
 /*
  *
  */
-class Kreis {
+class Circle {
 
-  String farbe;
-  int masse;
+  String color;
+  num mass;
   Vector position;
-  Vector richtung;
+  Vector velocity;
 
-  Kreis({farbe: "", masse: 0, position: Vector.origin, richtung: Vector.origin}) {
-    this.farbe = farbe;
-    this.masse = masse;
+  Circle({color: "", mass: 0.0, position: Vector.origin, velocity: Vector.origin}) {
+    this.color = color;
+    this.mass = mass;
     this.position = position;
-    this.richtung = richtung;
+    this.velocity = velocity;
   }
 
   step() {
-    position = position + richtung;
+    position = position + velocity;
   }
 
-  String toString() => "farbe: $farbe, masse: $masse, position: $position, richtung: $richtung";
+  String toString() => "color: $color, mass: $mass, position: $position, velocity: $velocity";
 
 }
 
-
 setup1() {
-  var u = new Kreis(farbe: "blau", masse: 3, position: new Vector(2, 1));
-  var v = new Kreis(farbe: "grau", masse: 4, position: new Vector(5, 3));
-  var w = new Kreis(farbe: "rot", masse: 2, position: new Vector(9, 4));
+  var u, v, w;
+  u = new Circle(color: "blau", mass: 3, position: new Vector(2, 1));
+  v = new Circle(color: "grau", mass: 4, position: new Vector(5, 3));
+  w = new Circle(color: "rot", mass: 2, position: new Vector(9, 4));
 
   print([u, v, w]);
 }
 
 setup2() {
-  var u = new Kreis(farbe: "blau", masse: 3, position: new Vector(2, 1), richtung: new Vector(0, 2));
-  var v = new Kreis(farbe: "grau", masse: 4, position: new Vector(5, 3), richtung: new Vector(0, 0));
-  var w = new Kreis(farbe: "rot", masse: 2, position: new Vector(9, 4), richtung: new Vector(-1, -1));
+  var u, v, w;
+  u = new Circle(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(0, 2));
+  v = new Circle(color: "grau", mass: 4, position: new Vector(5, 3), velocity: new Vector(0, 0));
+  w = new Circle(color: "rot", mass: 2, position: new Vector(9, 4), velocity: new Vector(-1, -1));
 
   print(u);
   u.step();
   print(u);
   u.step();
   print(u);
-}
-
-// runs maxT time steps all the elements in ks
-run(int maxT, List<Kreis> ks) {
-  for (var t = 0; t < maxT; t++) {
-    print("t=$t: $ks");
-    ks.forEach((Kreis k) => k.step());
-  }
 }
 
 run5Steps() {
-  var u = new Kreis(farbe: "blau", masse: 3, position: new Vector(2, 1), richtung: new Vector(0, 2));
-  var v = new Kreis(farbe: "grau", masse: 4, position: new Vector(5, 3), richtung: new Vector(0, 0));
-  var w = new Kreis(farbe: "rot", masse: 2, position: new Vector(9, 4), richtung: new Vector(-1, -1));
+  var u = new Circle(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(0, 2));
+  var v = new Circle(color: "grau", mass: 4, position: new Vector(5, 3), velocity: new Vector(0, 0));
+  var w = new Circle(color: "rot", mass: 2, position: new Vector(9, 4), velocity: new Vector(-1, -1));
 
   // run 5 steps for u,v and w
   for (var t = 0; t < 5; t++) {
     print("t=$t: $u, $v, $w");
     u.step(); v.step(); w.step();
   }
-// simpler using run:  run(5, [u, v, w]);
 }
 
-
 main(List<String> args) {
-  print('Beispiel 1 ----------------------');
+  print('Example 1 ----------------------');
   setup1();
-  print('Beispiel 2 ----------------------');
+  print('Example 2 ----------------------');
   setup2();
-  print('Beispiel 3 ----------------------');
+  print('Example 3 ----------------------');
   run5Steps();
-  print('Ende       ----------------------');
+  print('End       ----------------------');
 }
