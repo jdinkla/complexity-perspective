@@ -60,14 +60,24 @@ void main() {
 
     test(".neighbours 1", () {
       var ns1 = a.neighbours(1, 1);
-      expect(ns1.length, equals(9));
-      expect(ns1, equals([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      expect(ns1.length, equals(8));
+      expect(ns1, equals([1, 2, 3, 4, 6, 7, 8, 9]));
     });
 
+    /*
+     * 1 2 3
+     * 4 5 6
+     * 7 8 9
+     *
+     * 9 7 8
+     * 3 1 2
+     * 6 4 5
+     *
+     */
     test(".neighbours 2", () {
       var ns1 = a.neighbours(0, 0);
-      expect(ns1.length, equals(9));
-      expect(ns1, equals([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+      expect(ns1.length, equals(8));
+      expect(ns1, equals([9, 7, 8, 3, 2, 6, 4, 5]));
     });
 
   });

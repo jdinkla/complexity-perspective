@@ -25,7 +25,7 @@ class Cells<T> extends Array<T> {
     final int jp = nextY(j);
     return <T>[
       get(im, jm), get(i, jm), get(ip, jm),
-      get(im, j), get(i, j), get(ip, j),
+      get(im, j),              get(ip, j),
       get(im, jp), get(i, jp), get(ip, jp)
     ];
   }
