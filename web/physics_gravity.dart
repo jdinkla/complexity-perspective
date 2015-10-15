@@ -1,10 +1,10 @@
-/*
+/**
+ *
+ * Standalone version for the books "" and "".
+ *
  * (c) 2015 Jörn Dinkla, www.dinkla.net
  *
- * Code from the book
- *
- * "Titel"
- * "Title"
+ * See the file LICENSE in the ROOT directory.
  *
  */
 
