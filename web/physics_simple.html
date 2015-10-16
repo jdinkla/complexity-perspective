@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<!--
+    Copyright (c) 2015 Jörn Dinkla, www.dinkla.net
+    All rights reserved.
+    Use of this source code is governed by a license that can be found in the LICENSE file.
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="scaffolded-by" content="https://github.com/google/stagehand">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="http://www.dinkla.net/css/dinkla5.css">
+    <script async src="physics_simple_web.dart" type="application/dart"></script>
+    <script async src="packages/browser/dart.js"></script>
+    <title>Complex systems: physics</title>
+</head>
+
+<body>
+
+<h1>Complex Systems: physics</h1>
+
+<div id="main" class="box" style="height: 630px;">
+
+    <p>Explain ...</p>
+
+    <div class="container">
+
+        <div class="container-item" style="width: 33%;">
+
+            <div id="x">
+                <p>
+                    Simulation parameters
+                </p>
+                <p>
+                    Percentage of empty cells: <input type="number" id="emptyPercentage">
+                </p>
+                <p>
+                    Number of same neighbors: <input type="number" id="sameNeighbors">
+                </p>
+                <p>
+                    Graphic parameters
+                </p>
+                <p>
+                    Width of cell: <input type="number" id="cellWidth">
+                </p>
+                <p>
+                    Height of cell: <input type="number" id="cellHeight">
+                </p>
+                <p>
+                    Pixels between cells: <input type="number" id="cellBetween" min="0" max="100">
+                </p>
+            </div>
+
+            <div id="errors">
+                <p id="error_msg" class="error_msg">
+                    Put an error message here!
+                </p>
+            </div>
+
+            <div class="control">
+                <div class="buttonBar">
+                    <input type="button" id="setup" value="Setup" />
+                    <input type="button" id="step" value="Step" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-item">
+            <p id="stepCounter"></p>
+            <canvas id="area" height="630px" style="border: 1px solid #AAAAAA; padding: 5px;">
+                This text is displayed if your browser does not support HTML5 canvas.
+            </canvas>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -100,7 +100,7 @@ run(int maxT) {
 }
 
 runGravity() {
-  var u = new Circle(farbe: "blau", masse: 3, position: new Vector(2, 1), richtung: new Vector(0, 2));
+  var u = new Circle(farbe: "blau", masse: 3, position: new Vector(2, 1), richtung: new Vector(2, 0));
   var v = new Circle(farbe: "grau", masse: 4, position: new Vector(5, 3), richtung: new Vector(0, 0));
   var w = new Circle(farbe: "rot", masse: 2, position: new Vector(9, 4), richtung: new Vector(-1, -1));
 

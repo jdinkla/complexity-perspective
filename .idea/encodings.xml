@@ -5,7 +5,7 @@
     <file url="file://$PROJECT_DIR$/README.md" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pubspec.yaml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/web/physics_gravity.dart" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/web/physics_simple.dart" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/web/physics_simple_web.dart" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

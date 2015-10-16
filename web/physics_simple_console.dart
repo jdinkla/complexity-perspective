@@ -61,7 +61,7 @@ setup1() {
 
 setup2() {
   var u, v, w;
-  u = new Circle(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(0, 2));
+  u = new Circle(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(2, 0));
   v = new Circle(color: "grau", mass: 4, position: new Vector(5, 3), velocity: new Vector(0, 0));
   w = new Circle(color: "rot", mass: 2, position: new Vector(9, 4), velocity: new Vector(-1, -1));
 
@@ -73,7 +73,7 @@ setup2() {
 }
 
 run5Steps() {
-  var u = new Circle(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(0, 2));
+  var u = new Circle(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(2, 0));
   var v = new Circle(color: "grau", mass: 4, position: new Vector(5, 3), velocity: new Vector(0, 0));
   var w = new Circle(color: "rot", mass: 2, position: new Vector(9, 4), velocity: new Vector(-1, -1));
 
