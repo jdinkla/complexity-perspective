@@ -2,7 +2,7 @@
  *
  * Unit tests of the class Array.
  *
- * (c) 2015 Jörn Dinkla, www.dinkla.net
+ * Copyright (c) 2015 Jörn Dinkla, www.dinkla.net
  *
  * See the file LICENSE in the ROOT directory.
  *
