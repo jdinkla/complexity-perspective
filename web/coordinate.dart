@@ -1,8 +1,8 @@
 /**
  *
- * Class Vector.
+ * Class Coordinate.
  *
- * A two dimensional vector.
+ * A position on a board. Simpler than vector.
  *
  *
  * (c) 2015 Jörn Dinkla, www.dinkla.net
@@ -11,29 +11,23 @@
  *
  */
 
-import 'dart:math';
-
 /**
- * A two dimensional vector.
+ * A coordinate in a two dimensional coordinate system.
  */
-class Vector {
+class Coordinate {
 
   final num x;
   final num y;
 
-  const Vector(this.x, this.y);
-
-  Vector operator +(Vector v) => new Vector(x + v.x, y + v.y);
+  const Coordinate(this.x, this.y);
 
   String toString() => "($x, $y)";
 
   @override
-  bool operator ==(Vector v) => x == v.x && y == v.y;
+  bool operator ==(Coordinate p) => x == p.x && y == p.y;
 
   // if one overrides ==, you should also override hashCode
   @override
   int get hashCode => (x*41+y).hashCode;
-
-  static const origin = const Vector(0, 0);
 
 }

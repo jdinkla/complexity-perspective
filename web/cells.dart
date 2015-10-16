@@ -12,17 +12,23 @@
  */
 
 import 'array.dart';
+import 'coordinate.dart';
+import 'dart:math' show Random;
 
 class Cells<T> extends Array<T> {
 
+  List<int> emptyCells;
+  Random random;
+
   Cells(int m, int n) : super(m, n) {
+    random = new Random();
   }
 
   List<T> neighbours(int i, int j) {
-    final int im = previousX(i);
-    final int ip = nextX(i);
-    final int jm = previousY(j);
-    final int jp = nextY(j);
+    final int im = coords.previousX(i);
+    final int ip = coords.nextX(i);
+    final int jm = coords.previousY(j);
+    final int jp = coords.nextY(j);
     return <T>[
       get(im, jm), get(i, jm), get(ip, jm),
       get(im, j),              get(ip, j),
@@ -30,14 +36,23 @@ class Cells<T> extends Array<T> {
     ];
   }
 
-  int previousX(int i) => i == 0 ? m-1 : i-1;
+  void calcEmpty() {
+    // count the number of empty cells
+    final int numEmpty = elements.where((x) => x == null).length;
+    // create a list of the indices of the empty cells
+    emptyCells = new List<int>(numEmpty);
+    var j=0;
+    for (var i=0; i<m*n; i++) {
+      if (elements[i] == null) emptyCells[j++] = i;
+    }
+  }
 
-  int previousY(int j) => j == 0 ? n-1 : j-1;
-
-  int nextX(int i) => i == m-1 ? 0 : i+1;
-
-  int nextY(int j) => j == n-1 ? 0 : j+1;
-
+  Coordinate getEmpty(Coordinate old) {
+    var i = random.nextInt(emptyCells.length);        // get an random number
+    var j = emptyCells[i];                            // get the empty cell index
+    emptyCells[i] = coords.index2(old);               // the old position is empty now
+    return coords.position(j);
+  }
 
 }
 

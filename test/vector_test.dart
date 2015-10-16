@@ -45,6 +45,14 @@ void main() {
       var u = Vector.origin;
       expect(u.toString(), equals("(0, 0)"));
     });
+
+    test("==", () {
+      var u = Vector.origin;
+      var v = new Vector(0, 0);
+      assert(!identical(u, v));
+      assert(u == v);
+    });
+
   });
 
 }

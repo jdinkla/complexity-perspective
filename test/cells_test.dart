@@ -10,6 +10,7 @@
 
 import 'package:test/test.dart';
 import '../web/cells.dart';
+import '../web/coordinate.dart';
 
 void main() {
 
@@ -38,26 +39,6 @@ void main() {
       expect(a.get(1,1), equals(5));
     });
 
-    test("previousX", () {
-      expect(b.previousX(1), equals(0));
-      expect(b.previousX(0), equals(2));
-    });
-
-    test("previousY", () {
-      expect(b.previousY(1), equals(0));
-      expect(b.previousY(0), equals(3));
-    });
-
-    test("nextX", () {
-      expect(b.nextX(1), equals(2));
-      expect(b.nextX(2), equals(0));
-    });
-
-    test("nextY", () {
-      expect(b.nextY(1), equals(2));
-      expect(b.nextY(3), equals(0));
-    });
-
     test(".neighbours 1", () {
       var ns1 = a.neighbours(1, 1);
       expect(ns1.length, equals(8));
@@ -78,6 +59,24 @@ void main() {
       var ns1 = a.neighbours(0, 0);
       expect(ns1.length, equals(8));
       expect(ns1, equals([9, 7, 8, 3, 2, 6, 4, 5]));
+    });
+
+    test(".calcEmpty", () {
+      a.calcEmpty();
+      expect(a.emptyCells.length, equals(0));
+      a.set(1, 1, null);
+      a.calcEmpty();
+      expect(a.emptyCells.length, equals(1));
+    });
+
+    test(".getEmpty", () {
+      a.set(1, 1, null);
+      a.calcEmpty();
+      expect(a.emptyCells.length, equals(1));
+      var oldC = new Coordinate(2, 2);
+      var c = a.getEmpty(oldC);
+      expect(a.emptyCells.length, equals(1));
+      expect(a.emptyCells, equals([8]));
     });
 
   });

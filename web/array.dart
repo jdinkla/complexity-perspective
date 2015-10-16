@@ -10,32 +10,44 @@
  * See the file LICENSE in the ROOT directory.
  *
  */
+
+import 'coordinates.dart';
+
 class Array<T> {
 
   final int m;
   final int n;
-  List<T> _elements;
+  List<T> elements;
+  Coordinates coords;
 
   Array(this.m, this.n) {
     assert(1 <= m);
     assert(1 <= n);
-    _elements = new List<T>(m*n);
+    elements = new List<T>(m*n);
+    coords = new Coordinates(m, n);
   }
 
   void set(int i, int j, T v) {
-    assert(0 <= i && i < m);
-    assert(0 <= j && j < n);
-    _elements[_index(i, j)] = v;
+    elements[coords.index(i, j)] = v;
   }
 
   T get(int i, int j) {
-    assert(0 <= i && i < m);
-    assert(0 <= j && j < n);
-    return _elements[_index(i, j)];
+    return elements[coords.index(i, j)];
   }
 
-  int _index(int i, int j) => j * m + i;
+  void set1(int i, T v) {
+    elements[i] = v;
+  }
 
+  T get1(int i) {
+    return elements[i];
+  }
+
+  void clear() {
+    for (var i=0; i<m*n; i++) {
+      elements[i] = null;
+    }
+  }
 
 }
 

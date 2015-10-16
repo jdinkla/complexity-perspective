@@ -40,6 +40,44 @@ void main() {
       expect(a.get(1,0), equals(null));
       expect(a.get(1,1), equals(2));
     });
+
+    test(".set1 and .get1", () {
+      var a = new Array<int>(2, 2);
+      expect(a.get1(0), equals(null));
+      expect(a.get1(1), equals(null));
+      expect(a.get1(2), equals(null));
+      expect(a.get1(3), equals(null));
+
+      a.set1(0, 1);
+      expect(a.get1(0), equals(1));
+      expect(a.get1(1), equals(null));
+      expect(a.get1(2), equals(null));
+      expect(a.get1(3), equals(null));
+
+      a.set1(3, 2);
+      expect(a.get1(0), equals(1));
+      expect(a.get1(1), equals(null));
+      expect(a.get1(2), equals(null));
+      expect(a.get1(3), equals(2));
+    });
+
+    test(".clear", () {
+      var a = new Array<int>(2, 2);
+      a.set1(0, 1);
+      a.set1(3, 2);
+
+      expect(a.get1(0), equals(1));
+      expect(a.get1(1), equals(null));
+      expect(a.get1(2), equals(null));
+      expect(a.get1(3), equals(2));
+
+      a.clear();
+      expect(a.get1(0), equals(null));
+      expect(a.get1(1), equals(null));
+      expect(a.get1(2), equals(null));
+      expect(a.get1(3), equals(null));
+    });
+
   });
 
 }

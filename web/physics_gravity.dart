@@ -61,12 +61,10 @@ class Circle {
 
   dev_step() {
     Vector force = new Vector(0, 0);
-    objects.forEach( (Circle k) {
-      if (k != this) {
-        force += bodyBodyInteraction(position, k.position, k.mass);
-      }
-    }
-    );
+    objects
+    .where( (Circle c) => c != this)
+    .forEach( (Circle c) => force += bodyBodyInteraction(position, c.position, c.mass) );
+
     // force is the sum for all ks
     num invMass = 1.0 / mass;
     //num dt = 1.0;         // keep it simple, stupid
@@ -82,11 +80,9 @@ class Circle {
 
   step() {
     Vector force = new Vector(0, 0);
-    objects.forEach( (Circle k) {
-      if (k != this) {
-        force += bodyBodyInteraction(position, k.position, k.mass);
-      }
-    });
+    objects
+    .where( (Circle c) => c != this)
+    .forEach( (Circle c) => force += bodyBodyInteraction(position, c.position, c.mass) );
     velocity = velocity + new Vector(force.x / mass, force.y / mass);
     position = position + velocity;
   }
