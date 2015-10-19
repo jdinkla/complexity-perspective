@@ -8,6 +8,10 @@
  *
  */
 
+import 'dart:convert' show JSON;
+
+const String sep=";";
+
 /*
  * Two dimensional Vector
  */
@@ -21,7 +25,7 @@ class Vector {
 
   static const origin = const Vector(0, 0);
 
-  String toString() => "($x, $y)";
+  String toString() => "($x,$y)";
 
 }
 
@@ -44,9 +48,24 @@ class Circle {
 
   step() {
     position = position + velocity;
+    print(toJSON());
   }
 
   String toString() => "color: $color, mass: $mass, position: $position, velocity: $velocity";
+
+  String toCSV() => "$color$sep$mass$sep$position$sep$velocity";
+
+  Map toMap() => {"color": color, "mass": mass, "position": position.toString(), "velocity": velocity.toString() };
+
+  String toJSON() => JSON.encode(toMap());
+
+  String toXML() => """<circle>
+  <color>$color</color>
+  <mass>$mass</mass>
+  <position>$position</position>
+  <velocity>$velocity</velocity>
+</circle>""";
+
 
 }
 

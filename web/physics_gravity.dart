@@ -89,6 +89,13 @@ class Circle {
 
   String toString() => "f: $color, m: $mass, pos: $position, richtung: $velocity";
 
+  String toXML() => """<circle>
+  <color>$color</color>
+  <mass>$mass</mass>
+  <position>$position</position>
+  <velocity>$velocity</velocity>
+</circle>""";
+
 }
 
 // runs maxT time steps all the elements in ks
