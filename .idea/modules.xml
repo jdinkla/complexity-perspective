@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/complex-systems.iml" filepath="$PROJECT_DIR$/complex-systems.iml" />
+      <module fileurl="file://$PROJECT_DIR$/complexity-perspective.iml" filepath="$PROJECT_DIR$/complexity-perspective.iml" />
     </modules>
   </component>
 </project>
