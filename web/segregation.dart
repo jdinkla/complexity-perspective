@@ -94,9 +94,9 @@ class Agent {
 
   void step() {
     var ns = cells.neighbours(pos.x, pos.y);
-    var others = ns.where( (Agent a) => a != null && a.color == this.color );
-    var numSame = others.length;
-    if (numSame < minimumSame) {
+    var sameColored = ns.where( (Agent a) => a != null && a.color == this.color );
+    var numSame = sameColored.length;
+    if (numSame <= minimumSame) {
       Coordinate newPos = cells.getEmpty(pos);
       cells.set(newPos.x, newPos.y, this);
       cells.set(pos.x, pos.y, null);

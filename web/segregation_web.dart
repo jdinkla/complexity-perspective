@@ -107,8 +107,63 @@ class SegregationWeb extends Segregation {
         if (a != null) {
           final int x = i * elemWidth;
           final int y = j * elemHeight;
-          ctx.fillStyle = (a.color == Color.red) ? "#AF0A14" : "#1E2D5B";
+/*          ctx.fillStyle = (a.color == Color.red) ? "#AF0A14" : "#1E2D5B"; */
+/*          ctx.fillStyle = (a.color == Color.red) ? "#F44751" : "#1E2D5B";  8A9DD8
+*
+*           ctx.fillStyle = (a.color == Color.red) ? "#AF0A14" : "#1E2D5B";
           ctx.fillRect(x, y, w, h);
+
+            ctx.fillStyle = "#AF0A14";
+            ctx.fill();
+
+*/
+
+          if (a.color == Color.red) {
+            final int w2 = w / 2;
+            final int h2 = h / 2;
+            ctx.fillStyle = "#AF0A14";
+            ctx.beginPath();
+            ctx.moveTo(x + w2, y);
+            ctx.lineTo(x + w, y + h2);
+            ctx.lineTo(x + w2, y + h);
+            ctx.lineTo(x, y + h2);
+            ctx.lineTo(x + w2, y);
+            ctx.closePath();
+            ctx.fill();
+          } else {
+            ctx.fillStyle = "#1E2D5B";
+            ctx.fillRect(x+1, y+1, w-1, h-1);
+          }
+
+
+
+          /*
+          final int sw = 6;
+          final int rw = w - sw;
+          final int rh = h - sw;
+          if (a.color == Color.red) {
+            ctx.beginPath();
+            ctx.rect(x, y, w+sw, h+sw);
+            ctx.fillStyle = "#AF0A14";
+            ctx.fill();
+            ctx.lineWidth = sw;
+            ctx.strokeStyle = '#F44751';
+            ctx.stroke();
+          }
+          else {
+            ctx.beginPath();
+            ctx.rect(x, y, w - 1, h - 1);
+            ctx.fillStyle = "#1E2D5B";
+            ctx.fill();
+            ctx.lineWidth = sw;
+            ctx.strokeStyle = '#1E2D5B';
+            ctx.stroke();
+
+            ctx.fillStyle = "#1E2D5B";
+            ctx.fillRect(x, y, w, h);
+          }
+            */
+
         }
       }
     }
@@ -149,13 +204,13 @@ main() {
 
   //elemWidth * size + 2 * elemOffset
 
-  final int maxT = 1000;
-  final int size = 500;
-  final double empty = 0.01;
-  final int numberOfSame = 4;
-  final int elemWidth = 1;
-  final int elemHeight = 1;
-  final int elemOffset = 0;
+  final int maxT = 100;
+  final int size = 20;
+  final double empty = 0.05;
+  final int numberOfSame = 3;
+  final int elemWidth = 16;
+  final int elemHeight = 16;
+  final int elemOffset = 2;
 
   CanvasElement canvas = querySelector("#area");
   var s = new SegregationWeb(size, size, canvas, elemWidth, elemHeight, elemOffset);
