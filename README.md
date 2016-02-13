@@ -1,35 +1,45 @@
-Complex Systems
+Complexity Perspective
 =============================
 
-Dubdi dibdi
+This is the source code for the book
 
-* translated the C++ code to Java
-* made the code more object oriented
-* made the code thread-safe for parallel execution
-* wrote a DSL for easy scene creation and manipulation
+["Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft"](http://komplexeperspektive.dinkla.com).
 
-For easier manipulation of scenes i implemented a DSL for scenes.
+The book is in german, so the rest of the description is in german, too.
 
-See [my homepage for further information](http://dinkla.net/)
+---
+
+Der Code ist auf die folgenden Verzeichnisse verteilt:
+
+* Im Verzeichnis db befinden sich die Statemens aus Kapitel 6 für die Datenbanken.
+* Im Verzeichnis test befinden sich die Unit-Tests für den Dart-Code.
+* Im Verzeichnis web befindet sich der Code für die Simulationen.
+
+Wenn man den Code auf dem eigenen Rechner ausprobieren möchte, muss dafür Dart installiert werden. Dart gibt es unter [https://www.dartlang.org/](https://www.dartlang.org/).
 
 
-Start with
 
 ```
-$ pub serve, etc.
+$ pub serve
 ```
 
 Then choose an example from the `examples` directory.
 
-Keywords
---------
-complex systeems,
+
+```
+$ pub run test
+```
+
+http://localhost:8080/index.html
+
 
 Author
 ------
-Written by [Jörn Dinkla](http://www.dinkla.net).
+Written by [Jörn Dinkla](http://www.dinkla.com).
 
 Copyright
 ---------
 
-(C) 2015 Jörn Dinkla, www.dinkla.net
+(C) 2016 Jörn Dinkla, [komplexeperspektive.dinkla.com](http://komplexeperspektive.dinkla.com)
+
+

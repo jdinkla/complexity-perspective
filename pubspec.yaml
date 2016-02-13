@@ -1,8 +1,8 @@
-name: 'complex_systems'
+name: 'complexity_perspective'
 version: 0.0.1
-description: Source code for complex systems.
+description: Source code for the book "Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft".
 author: Jörn Dinkla <joern@dinkla.net>
-homepage: https://www.dinkla.net
+homepage: https://komplexeperspektive.dinkla.com
 
 environment:
   sdk: '>=1.0.0 <2.0.0'

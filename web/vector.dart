@@ -1,14 +1,8 @@
 /**
- *
- * Class Vector.
- *
- * A two dimensional vector.
- *
- *
- * (c) 2015 Jörn Dinkla, www.dinkla.net
- *
+ * (c) 2016 Jörn Dinkla, www.dinkla.net
  * See the file LICENSE in the ROOT directory.
  *
+ * Ein zweidimensionaler Vektor.
  */
 
 import 'dart:math';

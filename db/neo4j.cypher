@@ -1,4 +1,6 @@
-
+//
+// Dieses ist der Code aus Abschnitt 6.3
+//
 
 CREATE
     (A:Person {name: 'Anton'}),

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-
+#
+# Mit diesen Statements werden die drei "Planeten" in CouchDB angelegt (siehe Abschnitt 6.3)
+#
+# Dazu wird das Programm "curl" benötigt. Man kann diese Planeten auch auf der Weboberfläche anlegen.
+#
 curl -X PUT http://127.0.0.1:5984/model
 
 curl -H 'Content-type: application/json' -X POST http://127.0.0.1:5984/model -d '{ "color": "blau", "mass": 3, "position": { "x": 2, "y": 1 }, "velocity": { "x": 2, "y": 0 } }'

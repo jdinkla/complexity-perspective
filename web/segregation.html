@@ -16,43 +16,60 @@
     <link rel="stylesheet" href="http://www.dinkla.net/css/dinkla5.css">
     <script async src="segregation_web.dart" type="application/dart"></script>
     <script async src="packages/browser/dart.js"></script>
-    <title>Complex systems: segregation</title>
+    <title>Schelling-Model für Segregation aus Abschnitt 2.3</title>
 </head>
 
 <body>
 
-<h1>Complex Systems: Segregation</h1>
+<h1>Schelling-Model für Segregation aus Abschnitt 2.3</h1>
 
-<div id="main" class="box" style="height: 630px;">
+<div id="main" class="box">
 
-    <p>Explain ...</p>
+    <p>
+        Dieses ist eine Implementierung des Schelling-Modells, wie es in Abschnitt 2.3 im Buch
+        <a href="http://komplexeperspektive.dinkla.com/">Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft</a>
+        beschrieben wird.
+    </p>
 
     <div class="container">
 
-        <div class="container-item" style="width: 33%;">
+        <div class="container-item">
 
             <div id="x">
                 <p>
-                    Simulation parameters
+                    Parameter der Simulation
+                </p>
+
+                <p>
+                    Anzahl von Zellen in x-Richtung: <input type="number" id="numCellsX" />
                 </p>
                 <p>
-                    Percentage of empty cells: <input type="number" id="emptyPercentage">
+                    Anzahl von Zellen in y-Richtung: <input type="number" id="numCellsY" />
+                </p>
+
+                <p>
+                    Prozentualer Anteil der leeren Zellen: <input type="number" id="emptyPercentage" />
                 </p>
                 <p>
-                    Number of same neighbors: <input type="number" id="sameNeighbors">
+                    Mindestanzahl an gleichen Nachbarn [0-8]: <input type="number" id="sameNeighbors" min="0" max="8" />
+                </p>
+
+                <p>
+                    Graphische Parameter
                 </p>
                 <p>
-                    Graphic parameters
+                    Breite einer Zelle in Pixeln: <input type="number" id="cellWidth" />
                 </p>
                 <p>
-                    Width of cell: <input type="number" id="cellWidth">
+                    Höhe einer Zelle in Pixeln: <input type="number" id="cellHeight" />
                 </p>
                 <p>
-                    Height of cell: <input type="number" id="cellHeight">
+                    Anzahl Pixel zwischen Zellen: <input type="number" id="cellBetween" min="0" max="100" />
                 </p>
                 <p>
-                    Pixels between cells: <input type="number" id="cellBetween" min="0" max="100">
+                    Die roten Agenten als Rauten darstellen: <input type="checkbox" id="redDiamond" />
                 </p>
+
             </div>
 
             <div id="errors">
@@ -63,8 +80,8 @@
 
             <div class="control">
                 <div class="buttonBar">
-                    <input type="button" id="setup" value="Setup" />
-                    <input type="button" id="step" value="Step" />
+                    <input type="button" id="setupButton" value="Setup" />
+                    <input type="button" id="stepButton" value="Step" />
                 </div>
             </div>
 

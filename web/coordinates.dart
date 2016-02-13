@@ -1,13 +1,10 @@
 /**
+ * (c) 2016 Jörn Dinkla, www.dinkla.net
+ * See the file LICENSE in the ROOT directory.
  *
  * Class Coordinates.
  *
  * Two dimensional coordinates.
- *
- *
- * (c) 2015 Jörn Dinkla, www.dinkla.net
- *
- * See the file LICENSE in the ROOT directory.
  *
  */
 

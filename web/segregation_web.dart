@@ -5,86 +5,35 @@
 import 'segregation.dart';
 import 'dart:html';
 
+NumberInputElement nieNumCellsX;
+NumberInputElement nieNumCellsY;
+NumberInputElement nieEmptyPercentage;
+NumberInputElement nieSameNeighbors;
+NumberInputElement nieCellWidth;
+NumberInputElement nieCellHeight;
+NumberInputElement nieCellBetween;
+CheckboxInputElement nieRedDiamond;
+
 class SegregationWeb extends Segregation {
 
-  CanvasElement canvas;
-  num width;
-  num height;
-  var doc;
+  CanvasElement _canvas;
+  ParamElement _pe;
+  num _width;
+  num _height;
+  int widthOfCell;
+  int heightOfCell;
+  int betweenCells;
+  bool redDiamond;
 
-  int elemWidth;
-  int elemHeight;
-  int elemOffset;
+  SegregationWeb(this._canvas) : super() {
+    var doc = window.document;
+    _pe = doc.querySelector('#stepCounter');
+  }
 
-  NumberInputElement emptyPercentage;
-  NumberInputElement sameNeighbors;
-  NumberInputElement cellWidth;
-  NumberInputElement cellHeight;
-  NumberInputElement cellBetween;
-
-  ParamElement pe;
-
-  SegregationWeb(int m, int n, this.canvas, this.elemWidth, this.elemHeight, this.elemOffset) : super(m, n) {
-
-    Rectangle rect = canvas.parent.client;
-
-    width = elemWidth * m;
-    height = elemHeight * n;
-    canvas.width = width;
-    canvas.height = height;
-
-    doc = window.document;
-
-    pe = doc.querySelector('#stepCounter');
-
-    doc.querySelector("#step").onClick.listen((_) {
-      step();
-      requestRedraw();
-    });
-    doc.querySelector("#setup").onClick.listen((_) {
-      setup();
-      requestRedraw();
-    });
-
-    var errorMsg = doc.querySelector("#error_msg");
-
-    emptyPercentage = doc.querySelector('#emptyPercentage');
-    emptyPercentage.onChange.listen((_) {
-      print("HUHU");
-    });
-    //emptyPercentage.valueAsNumber = empty;
-
-    sameNeighbors = doc.querySelector('#sameNeighbors');
-    sameNeighbors.onChange.listen((_) {
-      print("HUHU");
-    });
-    //sameNeighbors.valueAsNumber = numberOfSame;
-
-    cellWidth = doc.querySelector('#cellWidth');
-    cellWidth.onChange.listen((_) {
-      emptyPercentage.valueAsNumber = 2030;
-      print("HUHU");
-    });
-
-    cellHeight = doc.querySelector('#cellHeight');
-    cellHeight.onChange.listen((_) {
-      elemHeight = 2;
-      requestRedraw();
-    });
-
-    cellBetween = doc.querySelector('#cellBetween');
-    cellBetween.onChange.listen((_) {
-      emptyPercentage.value = "drawX";
-      try {
-        emptyPercentage.value = "huhu: ${cellBetween.value}:";
-        int i = cellBetween.valueAsNumber;
-        elemOffset = i;
-        requestRedraw();
-      } finally {
-
-      }
-    });
-
+  void setup(int m, int n) {
+    super.setup(m, n);
+    _canvas.width = _width = widthOfCell * m;
+    _canvas.height = _height = heightOfCell * n;
   }
 
   void requestRedraw() {
@@ -93,77 +42,41 @@ class SegregationWeb extends Segregation {
 
   void draw([_]) {
 
-    pe.text = "Step ${stats.time}, min. equal = $numberOfSame";
+    _pe.text = "Step ${stats.time}, min. equal = $numberOfSame";
 
-    var ctx = canvas.context2D;
-    ctx.clearRect(0, 0, width, height);
+    var ctx = _canvas.context2D;
+    ctx.clearRect(0, 0, _width, _height);
 
-    final int w = elemWidth - elemOffset;
-    final int h = elemHeight - elemOffset;
+    final int w = widthOfCell - betweenCells;
+    final int h = heightOfCell - betweenCells;
 
     for (var j = 0; j < n; j++) {
       for (var i = 0; i < m; i++) {
-        Agent a = cells.get(i, j);
+        final Agent a = agent(i, j);
         if (a != null) {
-          final int x = i * elemWidth;
-          final int y = j * elemHeight;
-/*          ctx.fillStyle = (a.color == Color.red) ? "#AF0A14" : "#1E2D5B"; */
-/*          ctx.fillStyle = (a.color == Color.red) ? "#F44751" : "#1E2D5B";  8A9DD8
-*
-*           ctx.fillStyle = (a.color == Color.red) ? "#AF0A14" : "#1E2D5B";
-          ctx.fillRect(x, y, w, h);
-
-            ctx.fillStyle = "#AF0A14";
-            ctx.fill();
-
-*/
-
-          if (a.color == Color.red) {
-            final int w2 = w / 2;
-            final int h2 = h / 2;
-            ctx.fillStyle = "#AF0A14";
-            ctx.beginPath();
-            ctx.moveTo(x + w2, y);
-            ctx.lineTo(x + w, y + h2);
-            ctx.lineTo(x + w2, y + h);
-            ctx.lineTo(x, y + h2);
-            ctx.lineTo(x + w2, y);
-            ctx.closePath();
-            ctx.fill();
+          final int x = i * widthOfCell;
+          final int y = j * heightOfCell;
+          if (redDiamond) {
+            if (a.color == Color.red) {
+              final int w2 = w / 2;
+              final int h2 = h / 2;
+              ctx.fillStyle = "#AF0A14";
+              ctx.beginPath();
+              ctx.moveTo(x + w2, y);
+              ctx.lineTo(x + w, y + h2);
+              ctx.lineTo(x + w2, y + h);
+              ctx.lineTo(x, y + h2);
+              ctx.lineTo(x + w2, y);
+              ctx.closePath();
+              ctx.fill();
+            } else {
+              ctx.fillStyle = "#1E2D5B";
+              ctx.fillRect(x+1, y+1, w-1, h-1);
+            }
           } else {
-            ctx.fillStyle = "#1E2D5B";
-            ctx.fillRect(x+1, y+1, w-1, h-1);
-          }
-
-
-
-          /*
-          final int sw = 6;
-          final int rw = w - sw;
-          final int rh = h - sw;
-          if (a.color == Color.red) {
-            ctx.beginPath();
-            ctx.rect(x, y, w+sw, h+sw);
-            ctx.fillStyle = "#AF0A14";
-            ctx.fill();
-            ctx.lineWidth = sw;
-            ctx.strokeStyle = '#F44751';
-            ctx.stroke();
-          }
-          else {
-            ctx.beginPath();
-            ctx.rect(x, y, w - 1, h - 1);
-            ctx.fillStyle = "#1E2D5B";
-            ctx.fill();
-            ctx.lineWidth = sw;
-            ctx.strokeStyle = '#1E2D5B';
-            ctx.stroke();
-
-            ctx.fillStyle = "#1E2D5B";
+            ctx.fillStyle = (a.color == Color.red) ? "#AF0A14" : "#1E2D5B";
             ctx.fillRect(x, y, w, h);
           }
-            */
-
         }
       }
     }
@@ -173,50 +86,74 @@ class SegregationWeb extends Segregation {
 
 main() {
 
-  /*
-    final int maxT = 100;
-  final int size = 50;
-  final double empty = 0.01;
-  final int numberOfSame = 3;
-  final int elemWidth = 8;
-  final int elemHeight = 8;
-  final int elemOffset = 0;
-
-
-  // for book, image 1
-  final int maxT = 100;
-  final int size = 20;
-  final double empty = 0.05;
-  final int numberOfSame = 3;
+  // Startwerte
+  final int numCellsX = 20;
+  final int numCellsY = 20;
+  final double startEmpty = 0.05;
+  final int startNumberOfSame = 3;
   final int elemWidth = 16;
   final int elemHeight = 16;
   final int elemOffset = 2;
+  final bool redDiamond = true;
 
-  // for book, image 2
-  final int maxT = 100;
-  final int size = 20;
-  final double empty = 0.05;
-  final int numberOfSame = 3;
-  final int elemWidth = 16;
-  final int elemHeight = 16;
-  final int elemOffset = 2;
-   */
+  final CanvasElement canvas = querySelector("#area");
+  var s = new SegregationWeb(canvas);
 
-  //elemWidth * size + 2 * elemOffset
+  // Ermittle die HTML-Elemente
+  var doc = window.document;
+  nieNumCellsX = doc.querySelector('#numCellsX');
+  nieNumCellsY = doc.querySelector('#numCellsY');
+  nieEmptyPercentage = doc.querySelector('#emptyPercentage');
+  nieSameNeighbors = doc.querySelector('#sameNeighbors');
+  nieCellWidth = doc.querySelector('#cellWidth');
+  nieCellHeight = doc.querySelector('#cellHeight');
+  nieCellBetween = doc.querySelector('#cellBetween');
+  nieRedDiamond = doc.querySelector('#redDiamond');
 
-  final int maxT = 100;
-  final int size = 20;
-  final double empty = 0.05;
-  final int numberOfSame = 3;
-  final int elemWidth = 16;
-  final int elemHeight = 16;
-  final int elemOffset = 2;
+  // Setze die Startwerte ein
+  nieNumCellsX.value = numCellsX.toString();
+  nieNumCellsY.value = numCellsY.toString();
+  nieEmptyPercentage.value = startEmpty.toString();
+  nieSameNeighbors.value = startNumberOfSame.toString();
+  nieCellWidth.value = elemWidth.toString();
+  nieCellHeight.value = elemHeight.toString();
+  nieCellBetween.value = elemOffset.toString();
+  nieRedDiamond.checked = redDiamond;
 
-  CanvasElement canvas = querySelector("#area");
-  var s = new SegregationWeb(size, size, canvas, elemWidth, elemHeight, elemOffset);
-  s.empty = empty;
-  s.numberOfSame = numberOfSame;
-  s.setup();
+  nieRedDiamond.onChange.listen((_) {
+    s.redDiamond = nieRedDiamond.checked;
+    s.requestRedraw();
+  });
+
+  // Wenn der "Step"-Button gedrückt wird, wird step() aufgerufen
+  doc.querySelector("#stepButton").onClick.listen((_) {
+    s.step();
+    s.requestRedraw();
+  });
+
+  // Wenn der "Setup"-Button gedrückt wird, wird setup() mit den
+  // aktuellen Parametern aufgerufen
+  doc.querySelector("#setupButton").onClick.listen((_) {
+    final int m = int.parse(nieNumCellsX.value);
+    final int n = int.parse(nieNumCellsY.value);
+    s.empty = startEmpty; //nieEmptyPercentage.valueAsNumber;
+    s.numberOfSame = int.parse(nieSameNeighbors.value);
+    s.widthOfCell = int.parse(nieCellWidth.value);
+    s.heightOfCell = int.parse(nieCellHeight.value);
+    s.betweenCells = int.parse(nieCellBetween.value);
+    s.redDiamond = nieRedDiamond.checked;
+    s.setup(m, n);
+    s.requestRedraw();
+  });
+
+  // Den ersten Aufruf müssen wir selber machen
+  s.empty = startEmpty;
+  s.numberOfSame = startNumberOfSame;
+  s.widthOfCell = elemWidth;
+  s.heightOfCell = elemHeight;
+  s.betweenCells = elemOffset;
+  s.redDiamond = redDiamond;
+  s.setup(numCellsX, numCellsY);
   s.requestRedraw();
 
 }

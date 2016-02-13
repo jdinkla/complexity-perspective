@@ -110,23 +110,23 @@ class Agent {
 
 class Segregation {
 
-  final int m;
-  final int n;
-  Coordinates coords;
+  Coordinates _coords;
   Cells<Agent> cells;
   Distribution<Color> _distrib;
-
   Statistics stats;
 
+  int m;
+  int n;
   double empty;                     // is changeable
   int numberOfSame;                 // is changeable
 
-  Segregation(this.m, this.n) {
-    cells = new Cells(m, n);
-    coords = new Coordinates(m, n);
-  }
+  //Segregation() {  }
 
-  void setup() {
+  void setup(int m, int n) {
+    this.m = m;
+    this.n = n;
+    cells = new Cells(m, n);
+    _coords = new Coordinates(m, n);
     stats = new Statistics();
     cells.clear();
     // Distribution
@@ -136,7 +136,7 @@ class Segregation {
     for (var i = 0; i < m*n; i++) {
       var c = _distrib.next();
       if (c != Color.empty) {
-        var p = coords.position(i);
+        var p = _coords.position(i);
         var a = new Agent(c, cells, p, numberOfSame, stats);
         cells.set1(i, a);
       }
@@ -154,5 +154,7 @@ class Segregation {
   void finish() {
     stats.report();
   }
+
+  Agent agent(int i, int j) => cells.get(i, j);
 
 }

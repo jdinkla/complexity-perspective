@@ -1,5 +1,8 @@
 /**
+ * (c) 2016 Jörn Dinkla, www.dinkla.net
+ * See the file LICENSE in the ROOT directory.
  *
+ * Code für das einfache System in Abschnitt 2.3
  */
 
 import 'segregation.dart';
@@ -26,28 +29,33 @@ class SegregationConsole extends Segregation {
     this.empty = empty;
     this.numberOfSame = numberOfSame;
     setup();
-    print("Initial setup");
-    //printCells();
+    format("Initialisierung");
+    printCells();
     for (int t = 0; t < numSteps; t++ ) {
-      print("Step ${t+1}");
+      format("Step ${t+1}");
       step();
-      //printCells();
+      printCells();
       if (!stats.hasChanged) {
-        print("Aborting, because no change");
+        format("Abbruch, weil alle Agenten zufrieden sind");
         break;
       }
     }
     finish();
   }
 
+  format(String str, [length = 60]) {
+    final int len = length - str.length - 1;
+    print(str + " " + "-" * len);
+  }
+
 }
 
 main() {
 
-  final int maxT = 1000;
-  final int size = 1000;
-  final double empty = 0.01;
-  final int numberOfSame = 4;
+  final int maxT = 10;
+  final int size = 10;
+  final double empty = 0.1;
+  final int numberOfSame = 3;
 
   var s = new SegregationConsole(size, size);
   s.run(maxT, empty, numberOfSame);

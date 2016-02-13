@@ -1,4 +1,7 @@
 
+/*
+ * Die drei "Planeten" in JSON (siehe Abschnitte 6.3 und 2.4)
+ */
 var cs =
 [
 
@@ -24,6 +27,10 @@ var cs =
     }
 
 ];
+
+/*
+ * Die in Abschnitt 6.3 im Screenshot von CouchDB gezeigte Abfrage.
+ */
 
 var map = function(doc) {
     emit(doc.color, [doc.position.x, doc.velocity.y]);
