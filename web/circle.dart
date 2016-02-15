@@ -27,21 +27,4 @@ class Circle {
 
   String toString() => "color: $color, mass: $mass, position: $position, velocity: $velocity";
 
-  //String toCSV() => "$color$sep$mass$sep$position$sep$velocity";
-
-  // Konvertiere zu Map
-  //Map toMap() => {"color": color, "mass": mass, "position": position.toString(), "velocity": velocity.toString() };
-
-// print(toJSON());
-// String toJSON() => JSON.encode(toMap());
-
-  /*
-  String toXML() => """<circle>
-  <color>$color</color>
-  <mass>$mass</mass>
-  <position>$position</position>
-  <velocity>$velocity</velocity>
-</circle>""";
-*/
-
 }
