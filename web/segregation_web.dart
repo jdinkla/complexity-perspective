@@ -1,5 +1,8 @@
 /**
+ * (c) 2016 Jörn Dinkla, www.dinkla.com
+ * See the file LICENSE in the ROOT directory.
  *
+ * Code für das Schelling-Modell in Abschnitt 2.3
  */
 
 import 'segregation.dart';
@@ -58,8 +61,8 @@ class SegregationWeb extends Segregation {
           final int y = j * heightOfCell;
           if (redDiamond) {
             if (a.color == Color.red) {
-              final int w2 = w / 2;
-              final int h2 = h / 2;
+              final int w2 = (w / 2).toInt();
+              final int h2 = (h / 2).toInt();
               ctx.fillStyle = "#AF0A14";
               ctx.beginPath();
               ctx.moveTo(x + w2, y);

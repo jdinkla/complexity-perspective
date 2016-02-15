@@ -1,5 +1,8 @@
 /**
+ * (c) 2016 Jörn Dinkla, www.dinkla.com
+ * See the file LICENSE in the ROOT directory.
  *
+ * Code für das Schelling-Modell in Abschnitt 2.3
  */
 
 import 'cells.dart';
@@ -115,12 +118,10 @@ class Segregation {
   Distribution<Color> _distrib;
   Statistics stats;
 
-  int m;
-  int n;
-  double empty;                     // is changeable
-  int numberOfSame;                 // is changeable
-
-  //Segregation() {  }
+  int m;                            // Breite
+  int n;                            // Höhe
+  double empty;                     // Anzahl leerer Zellen in Prozent
+  int numberOfSame;                 // Anzahl gleicher Nachbarn
 
   void setup(int m, int n) {
     this.m = m;

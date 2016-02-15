@@ -1,5 +1,5 @@
 /**
- * (c) 2016 Jörn Dinkla, www.dinkla.net
+ * (c) 2016 Jörn Dinkla, www.dinkla.com
  * See the file LICENSE in the ROOT directory.
  *
  * Code für das einfache System in Abschnitt 2.3
@@ -8,9 +8,6 @@
 import 'segregation.dart';
 
 class SegregationConsole extends Segregation {
-
-  SegregationConsole(int m, int n) : super(m, n) {
-  }
 
   void printCells() {
     for (var j = 0; j < n; j++) {
@@ -25,10 +22,10 @@ class SegregationConsole extends Segregation {
     }
   }
 
-  void run(int numSteps, double empty, int numberOfSame) {
+  void run(int size, int numSteps, double empty, int numberOfSame) {
     this.empty = empty;
     this.numberOfSame = numberOfSame;
-    setup();
+    setup(size, size);
     format("Initialisierung");
     printCells();
     for (int t = 0; t < numSteps; t++ ) {
@@ -51,13 +48,11 @@ class SegregationConsole extends Segregation {
 }
 
 main() {
-
   final int maxT = 10;
   final int size = 10;
-  final double empty = 0.1;
+  final double empty = 0.05;
   final int numberOfSame = 3;
 
-  var s = new SegregationConsole(size, size);
-  s.run(maxT, empty, numberOfSame);
-
+  var s = new SegregationConsole();
+  s.run(size, maxT, empty, numberOfSame);
 }

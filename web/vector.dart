@@ -1,5 +1,5 @@
 /**
- * (c) 2016 Jörn Dinkla, www.dinkla.net
+ * (c) 2016 Jörn Dinkla, www.dinkla.com
  * See the file LICENSE in the ROOT directory.
  *
  * Ein zweidimensionaler Vektor.
