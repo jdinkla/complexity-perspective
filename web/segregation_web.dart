@@ -139,7 +139,7 @@ main() {
   doc.querySelector("#setupButton").onClick.listen((_) {
     final int m = int.parse(nieNumCellsX.value);
     final int n = int.parse(nieNumCellsY.value);
-    s.empty = startEmpty; //nieEmptyPercentage.valueAsNumber;
+    s.empty = double.parse(nieEmptyPercentage.value);
     s.numberOfSame = int.parse(nieSameNeighbors.value);
     s.widthOfCell = int.parse(nieCellWidth.value);
     s.heightOfCell = int.parse(nieCellHeight.value);
