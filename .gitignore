@@ -1,3 +1,5 @@
+node_modules/
+
 .buildlog
 .DS_Store
 #.idea TODO bei release herausnehmen
@@ -8,7 +10,7 @@ packages
 pubspec.lock
 
 #
-# additions by Jörn Dinkla, see https://intellij-support.jetbrains.com/hc/en-us/articles/206827587-How-to-manage-projects-under-Version-Control-Systems
+# additions by Jï¿½rn Dinkla, see https://intellij-support.jetbrains.com/hc/en-us/articles/206827587-How-to-manage-projects-under-Version-Control-Systems
 #
 
 .idea/workspace.xml
