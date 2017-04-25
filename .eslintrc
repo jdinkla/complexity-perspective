@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "comma-dangle": ["error", "never"],
+    "react/prefer-stateless-function": [0, {}],
+    "react/forbid-prop-types": [0, {}],
+    "react/no-multi-comp": [0, {}],
+    "jsx-a11y/label-has-for": [0, {}]
+  }
+}
