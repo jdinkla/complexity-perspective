@@ -16,25 +16,27 @@ deps:
 build:
     @echo "Building Dart web application..."
     dart pub get
+    @mkdir -p web/build
     @echo "Compiling main.dart..."
-    dart compile js web/main.dart -o web/main.dart.js
+    dart compile js web/main.dart -o web/build/main.dart.js
     @echo "Compiling einfaches_system_web.dart..."
-    dart compile js web/einfaches_system_web.dart -o web/einfaches_system_web.dart.js
+    dart compile js web/einfaches_system_web.dart -o web/build/einfaches_system_web.dart.js
     @echo "Compiling kompliziertes_system_web.dart..."
-    dart compile js web/kompliziertes_system_web.dart -o web/kompliziertes_system_web.dart.js
+    dart compile js web/kompliziertes_system_web.dart -o web/build/kompliziertes_system_web.dart.js
     @echo "Compiling segregation_web.dart..."
-    dart compile js web/segregation_web.dart -o web/segregation_web.dart.js
+    dart compile js web/segregation_web.dart -o web/build/segregation_web.dart.js
     @echo "Build complete!"
 
 # Serve the web application locally (builds first)
 serve:
     @echo "Building project..."
     dart pub get
+    @mkdir -p web/build
     @echo "Compiling Dart files to JavaScript..."
-    dart compile js web/main.dart -o web/main.dart.js
-    dart compile js web/einfaches_system_web.dart -o web/einfaches_system_web.dart.js
-    dart compile js web/kompliziertes_system_web.dart -o web/kompliziertes_system_web.dart.js
-    dart compile js web/segregation_web.dart -o web/segregation_web.dart.js
+    dart compile js web/main.dart -o web/build/main.dart.js
+    dart compile js web/einfaches_system_web.dart -o web/build/einfaches_system_web.dart.js
+    dart compile js web/kompliziertes_system_web.dart -o web/build/kompliziertes_system_web.dart.js
+    dart compile js web/segregation_web.dart -o web/build/segregation_web.dart.js
     @echo "Stopping any existing server on port 8080..."
     @lsof -ti:8080 2>/dev/null | xargs kill -9 2>/dev/null || true
     @sleep 1
@@ -53,8 +55,10 @@ open:
 clean:
     rm -rf .dart_tool
     rm -rf build
+    rm -rf web/build
     find web -name "*.dart.js" -type f -delete
     find web -name "*.js.map" -type f -delete
+    find web -name "*.js.deps" -type f -delete
     @echo "Cleaned build artifacts"
 
 # Format code
