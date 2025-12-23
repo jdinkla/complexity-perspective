@@ -27,17 +27,19 @@ Vector bodyBodyInteraction(Vector v, Vector w, num mass1) {
 class Circle2 extends Circle {
 
   // Enthält die anderen Planeten
-  List<Circle2> objects = null;
+  List<Circle2>? objects;
 
-  Circle2({color: "", mass: 0.0, position: Vector.origin, velocity: Vector.origin})
-      : super(color: color, mass: mass, position: position, velocity: velocity)
+  Circle2({String color = "", num mass = 0.0, Vector? position, Vector? velocity})
+      : super(color: color, mass: mass, position: position ?? Vector.origin, velocity: velocity ?? Vector.origin)
   {
   }
 
   step() {
-    assert(objects != null);
+    if (objects == null) {
+      throw Exception("Objects list is null");
+    }
     Vector force = new Vector(0, 0);
-    objects
+    objects!
         .where( (Circle c) => c != this)
         .forEach( (Circle c) => force += bodyBodyInteraction(position, c.position, c.mass) );
     velocity = velocity + new Vector(force.x / mass, force.y / mass);

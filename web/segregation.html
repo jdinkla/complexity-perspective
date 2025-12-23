@@ -13,21 +13,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="scaffolded-by" content="https://github.com/google/stagehand">
     <link rel="stylesheet" href="http://www.dinkla.net/css/dinkla5.css">
-    <script async src="segregation_web.dart" type="application/dart"></script>
-    <script async src="packages/browser/dart.js"></script>
-    <title>Komplexes Modell mit Segregation</title>
+    <script async src="segregation_web.dart.js"></script>
+    <title>Complex Model with Segregation</title>
 </head>
 
 <body>
 
-<h1>Komplexes Modell mit Segregation</h1>
+<h1>Complex Model with Segregation</h1>
 
 <div id="main" class="box">
 
     <p>
-        Dieses ist eine Implementierung des Schelling-Modells, wie es in Abschnitt 2.3 im Buch
-        <a href="https://complex-perspective.dinkla.net/">Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft</a>
-        beschrieben wird.
+        This is an implementation of the Schelling model as described in Section 2.3 of the book
+        <a href="https://www.dinkla.net/complex-perspective/">The Complex Perspective - Introduction to Digital Economy</a>.
     </p>
 
     <div class="container">
@@ -36,37 +34,37 @@
 
             <div id="x">
                 <p>
-                    Parameter der Simulation
+                    Simulation Parameters
                 </p>
 
                 <p>
-                    Anzahl von Zellen in x-Richtung: <input type="number" id="numCellsX" />
+                    Number of cells in x-direction: <input type="number" id="numCellsX" />
                 </p>
                 <p>
-                    Anzahl von Zellen in y-Richtung: <input type="number" id="numCellsY" />
-                </p>
-
-                <p>
-                    Prozentualer Anteil der leeren Zellen: <input type="number" id="emptyPercentage" />
-                </p>
-                <p>
-                    Mindestanzahl an gleichen Nachbarn [0-8]: <input type="number" id="sameNeighbors" min="0" max="8" />
+                    Number of cells in y-direction: <input type="number" id="numCellsY" />
                 </p>
 
                 <p>
-                    Graphische Parameter
+                    Percentage of empty cells: <input type="number" id="emptyPercentage" />
                 </p>
                 <p>
-                    Breite einer Zelle in Pixeln: <input type="number" id="cellWidth" />
+                    Minimum number of same neighbors [0-8]: <input type="number" id="sameNeighbors" min="0" max="8" />
+                </p>
+
+                <p>
+                    Graphical Parameters
                 </p>
                 <p>
-                    Höhe einer Zelle in Pixeln: <input type="number" id="cellHeight" />
+                    Width of a cell in pixels: <input type="number" id="cellWidth" />
                 </p>
                 <p>
-                    Anzahl Pixel zwischen Zellen: <input type="number" id="cellBetween" min="0" max="100" />
+                    Height of a cell in pixels: <input type="number" id="cellHeight" />
                 </p>
                 <p>
-                    Die roten Agenten als Rauten darstellen: <input type="checkbox" id="redDiamond" />
+                    Number of pixels between cells: <input type="number" id="cellBetween" min="0" max="100" />
+                </p>
+                <p>
+                    Display red agents as diamonds: <input type="checkbox" id="redDiamond" />
                 </p>
 
             </div>
@@ -87,7 +85,7 @@
         <div class="container-item">
             <p id="stepCounter"></p>
             <canvas id="area" height="630px" style="border: 1px solid #AAAAAA; padding: 5px;">
-                Dieses Programm benötigt einen neueren Browser, der HTML5 Canvas unterstützt.
+                This program requires a modern browser that supports HTML5 Canvas.
             </canvas>
         </div>
     </div>

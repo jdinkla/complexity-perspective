@@ -14,12 +14,7 @@ class Circle {
   Vector position;
   Vector velocity;
 
-  Circle({color: "", mass: 0.0, position: Vector.origin, velocity: Vector.origin}) {
-    this.color = color;
-    this.mass = mass;
-    this.position = position;
-    this.velocity = velocity;
-  }
+  Circle({this.color = "", this.mass = 0.0, this.position = Vector.origin, this.velocity = Vector.origin});
 
   step() {
     position = position + velocity;

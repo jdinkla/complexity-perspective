@@ -8,29 +8,33 @@
 import 'segregation.dart';
 import 'dart:html';
 
-NumberInputElement nieNumCellsX;
-NumberInputElement nieNumCellsY;
-NumberInputElement nieEmptyPercentage;
-NumberInputElement nieSameNeighbors;
-NumberInputElement nieCellWidth;
-NumberInputElement nieCellHeight;
-NumberInputElement nieCellBetween;
-CheckboxInputElement nieRedDiamond;
+late NumberInputElement nieNumCellsX;
+late NumberInputElement nieNumCellsY;
+late NumberInputElement nieEmptyPercentage;
+late NumberInputElement nieSameNeighbors;
+late NumberInputElement nieCellWidth;
+late NumberInputElement nieCellHeight;
+late NumberInputElement nieCellBetween;
+late CheckboxInputElement nieRedDiamond;
 
 class SegregationWeb extends Segregation {
 
   CanvasElement _canvas;
-  ParamElement _pe;
-  num _width;
-  num _height;
-  int widthOfCell;
-  int heightOfCell;
-  int betweenCells;
-  bool redDiamond;
+  late ParagraphElement _pe;
+  num _width = 0;
+  num _height = 0;
+  int widthOfCell = 0;
+  int heightOfCell = 0;
+  int betweenCells = 0;
+  bool redDiamond = false;
 
   SegregationWeb(this._canvas) : super() {
     var doc = window.document;
-    _pe = doc.querySelector('#stepCounter');
+    final pe = doc.querySelector('#stepCounter') as ParagraphElement?;
+    if (pe == null) {
+      throw Exception("Element #stepCounter not found");
+    }
+    _pe = pe;
   }
 
   void setup(int m, int n) {
@@ -55,7 +59,7 @@ class SegregationWeb extends Segregation {
 
     for (var j = 0; j < n; j++) {
       for (var i = 0; i < m; i++) {
-        final Agent a = agent(i, j);
+        final Agent? a = agent(i, j);
         if (a != null) {
           final int x = i * widthOfCell;
           final int y = j * heightOfCell;
@@ -99,19 +103,37 @@ main() {
   final int elemOffset = 2;
   final bool redDiamond = true;
 
-  final CanvasElement canvas = querySelector("#area");
-  var s = new SegregationWeb(canvas);
+  final CanvasElement? canvasElement = querySelector("#area") as CanvasElement?;
+  if (canvasElement == null) {
+    throw Exception("Canvas element #area not found");
+  }
+  var s = new SegregationWeb(canvasElement);
 
   // Ermittle die HTML-Elemente
   var doc = window.document;
-  nieNumCellsX = doc.querySelector('#numCellsX');
-  nieNumCellsY = doc.querySelector('#numCellsY');
-  nieEmptyPercentage = doc.querySelector('#emptyPercentage');
-  nieSameNeighbors = doc.querySelector('#sameNeighbors');
-  nieCellWidth = doc.querySelector('#cellWidth');
-  nieCellHeight = doc.querySelector('#cellHeight');
-  nieCellBetween = doc.querySelector('#cellBetween');
-  nieRedDiamond = doc.querySelector('#redDiamond');
+  final numCellsXElement = doc.querySelector('#numCellsX') as NumberInputElement?;
+  final numCellsYElement = doc.querySelector('#numCellsY') as NumberInputElement?;
+  final emptyPercentageElement = doc.querySelector('#emptyPercentage') as NumberInputElement?;
+  final sameNeighborsElement = doc.querySelector('#sameNeighbors') as NumberInputElement?;
+  final cellWidthElement = doc.querySelector('#cellWidth') as NumberInputElement?;
+  final cellHeightElement = doc.querySelector('#cellHeight') as NumberInputElement?;
+  final cellBetweenElement = doc.querySelector('#cellBetween') as NumberInputElement?;
+  final redDiamondElement = doc.querySelector('#redDiamond') as CheckboxInputElement?;
+  
+  if (numCellsXElement == null || numCellsYElement == null || emptyPercentageElement == null ||
+      sameNeighborsElement == null || cellWidthElement == null || cellHeightElement == null ||
+      cellBetweenElement == null || redDiamondElement == null) {
+    throw Exception("Required form elements not found");
+  }
+  
+  nieNumCellsX = numCellsXElement;
+  nieNumCellsY = numCellsYElement;
+  nieEmptyPercentage = emptyPercentageElement;
+  nieSameNeighbors = sameNeighborsElement;
+  nieCellWidth = cellWidthElement;
+  nieCellHeight = cellHeightElement;
+  nieCellBetween = cellBetweenElement;
+  nieRedDiamond = redDiamondElement;
 
   // Setze die Startwerte ein
   nieNumCellsX.value = numCellsX.toString();
@@ -124,27 +146,27 @@ main() {
   nieRedDiamond.checked = redDiamond;
 
   nieRedDiamond.onChange.listen((_) {
-    s.redDiamond = nieRedDiamond.checked;
+    s.redDiamond = nieRedDiamond.checked ?? false;
     s.requestRedraw();
   });
 
   // Wenn der "Step"-Button gedrückt wird, wird step() aufgerufen
-  doc.querySelector("#stepButton").onClick.listen((_) {
+  doc.querySelector("#stepButton")?.onClick.listen((_) {
     s.step();
     s.requestRedraw();
   });
 
   // Wenn der "Setup"-Button gedrückt wird, wird setup() mit den
   // aktuellen Parametern aufgerufen
-  doc.querySelector("#setupButton").onClick.listen((_) {
-    final int m = int.parse(nieNumCellsX.value);
-    final int n = int.parse(nieNumCellsY.value);
-    s.empty = double.parse(nieEmptyPercentage.value);
-    s.numberOfSame = int.parse(nieSameNeighbors.value);
-    s.widthOfCell = int.parse(nieCellWidth.value);
-    s.heightOfCell = int.parse(nieCellHeight.value);
-    s.betweenCells = int.parse(nieCellBetween.value);
-    s.redDiamond = nieRedDiamond.checked;
+  doc.querySelector("#setupButton")?.onClick.listen((_) {
+    final int m = int.parse(nieNumCellsX.value ?? "0");
+    final int n = int.parse(nieNumCellsY.value ?? "0");
+    s.empty = double.parse(nieEmptyPercentage.value ?? "0");
+    s.numberOfSame = int.parse(nieSameNeighbors.value ?? "0");
+    s.widthOfCell = int.parse(nieCellWidth.value ?? "0");
+    s.heightOfCell = int.parse(nieCellHeight.value ?? "0");
+    s.betweenCells = int.parse(nieCellBetween.value ?? "0");
+    s.redDiamond = nieRedDiamond.checked ?? false;
     s.setup(m, n);
     s.requestRedraw();
   });

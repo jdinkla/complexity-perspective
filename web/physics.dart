@@ -19,32 +19,39 @@ final num offset = 50;
 class Physics {
 
   CanvasElement canvas;
-  int width;
-  int height;
-  ParamElement _pe;
+  late int width;
+  late int height;
+  late ParagraphElement _pe;
   var ctx;
 
-  int time;
-  List<Circle> objects;
-  mkModel genModel;
+  int time = 0;
+  List<Circle> objects = [];
+  late mkModel genModel;
 
   Physics(this.canvas, mkModel genModel) {
-    final Rectangle rect = canvas.parent.client;
-    width = rect.width;
-    height = rect.height;
+    final Rectangle? rect = canvas.parent?.client;
+    if (rect == null) {
+      throw Exception("Canvas parent has no client rectangle");
+    }
+    width = rect.width.toInt();
+    height = rect.height.toInt();
     canvas.width = width;
     canvas.height = height;
     this.genModel = genModel;
 
     var doc = window.document;
-    _pe = doc.querySelector('#stepCounter');
+    final pe = doc.querySelector('#stepCounter') as ParagraphElement?;
+    if (pe == null) {
+      throw Exception("Element #stepCounter not found");
+    }
+    _pe = pe;
     ctx = canvas.context2D;
 
-    doc.querySelector("#step").onClick.listen((_) {
+    doc.querySelector("#step")?.onClick.listen((_) {
       step();
       requestRedraw();
     });
-    doc.querySelector("#setup").onClick.listen((_) {
+    doc.querySelector("#setup")?.onClick.listen((_) {
       setup();
       requestRedraw();
     });
@@ -108,7 +115,7 @@ class Physics {
       ctx.fillStyle = c.color;
       ctx.strokeStyle = c.color;
       ctx.lineWidth = 0;
-      ctx.arc(p.x, p.y, c.mass * 10, 0, 2*math.PI);
+      ctx.arc(p.x, p.y, c.mass * 10, 0, 2 * math.pi);
       ctx.fill();
       ctx.stroke();
     });

@@ -26,14 +26,28 @@ build:
     dart compile js web/segregation_web.dart -o web/segregation_web.dart.js
     @echo "Build complete!"
 
-# Serve the web application locally
+# Serve the web application locally (builds first)
 serve:
+    @echo "Building project..."
+    dart pub get
+    @echo "Compiling Dart files to JavaScript..."
+    dart compile js web/main.dart -o web/main.dart.js
+    dart compile js web/einfaches_system_web.dart -o web/einfaches_system_web.dart.js
+    dart compile js web/kompliziertes_system_web.dart -o web/kompliziertes_system_web.dart.js
+    dart compile js web/segregation_web.dart -o web/segregation_web.dart.js
+    @echo "Stopping any existing server on port 8080..."
+    @lsof -ti:8080 2>/dev/null | xargs kill -9 2>/dev/null || true
+    @sleep 1
     @echo "Starting web server on http://localhost:8080"
     @echo "Open http://localhost:8080/index.html in your browser"
-    @(cd web && python3 -m http.server 8080 2>/dev/null) || (cd web && python -m SimpleHTTPServer 8080 2>/dev/null) || (echo "Python not found. Please install Python or use a different HTTP server." && exit 1)
+    @dart run web/server.dart
 
 # Run the project (alias for serve)
 run: serve
+
+# Open the web application in the default browser
+open:
+    open http://localhost:8080/index.html
 
 # Clean build artifacts
 clean:

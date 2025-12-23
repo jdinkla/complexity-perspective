@@ -19,8 +19,11 @@ List<Circle> getModel() {
 
 main(List<String> args) {
 
-  CanvasElement canvas = querySelector("#area");
-  var p = new Physics(canvas, () => getModel());
+  CanvasElement? canvasElement = querySelector("#area") as CanvasElement?;
+  if (canvasElement == null) {
+    throw Exception("Canvas element #area not found");
+  }
+  var p = new Physics(canvasElement, () => getModel());
   p.setup();
   p.requestRedraw();
 

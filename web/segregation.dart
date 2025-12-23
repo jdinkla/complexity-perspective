@@ -6,7 +6,7 @@
  */
 
 import 'cells.dart';
-import 'distribution.dart';
+import 'Distribution.dart';
 import 'coordinates.dart';
 import 'coordinate.dart';
 
@@ -34,29 +34,23 @@ String printColor(Color c) {
 
 class Statistics {
 
-  int _t;
-  Map<int, int> numMovesPerStep;
-  Map<int, int> numRedMovesPerStep;
-  Map<int, int> numBlueMovesPerStep;
-  bool hasChanged;
+  int _t = 0;
+  Map<int, int> numMovesPerStep = {};
+  Map<int, int> numRedMovesPerStep = {};
+  Map<int, int> numBlueMovesPerStep = {};
+  bool hasChanged = false;
 
-  Statistics() {
-    _t = 0;
-    numMovesPerStep = {};
-    numRedMovesPerStep = {};
-    numBlueMovesPerStep = {};
-  }
-
+  Statistics();
 
   void move(Agent a) {
     numMovesPerStep.putIfAbsent(_t, () => 0);
-    numMovesPerStep[_t]++;
+    numMovesPerStep[_t] = (numMovesPerStep[_t] ?? 0) + 1;
     if (a.color == Color.red) {
       numRedMovesPerStep.putIfAbsent(_t, () => 0);
-      numRedMovesPerStep[_t]++;
+      numRedMovesPerStep[_t] = (numRedMovesPerStep[_t] ?? 0) + 1;
     } else {
       numBlueMovesPerStep.putIfAbsent(_t, () => 0);
-      numBlueMovesPerStep[_t]++;
+      numBlueMovesPerStep[_t] = (numBlueMovesPerStep[_t] ?? 0) + 1;
     }
     hasChanged = true;
   }
@@ -96,13 +90,13 @@ class Agent {
   }
 
   void step() {
-    var ns = cells.neighbours(pos.x, pos.y);
-    var sameColored = ns.where( (Agent a) => a != null && a.color == this.color );
+    var ns = cells.neighbours(pos.x.toInt(), pos.y.toInt());
+    var sameColored = ns.where( (Agent? a) => a != null && a.color == this.color );
     var numSame = sameColored.length;
     if (numSame <= minimumSame) {
       Coordinate newPos = cells.getEmpty(pos);
-      cells.set(newPos.x, newPos.y, this);
-      cells.set(pos.x, pos.y, null);
+      cells.set(newPos.x.toInt(), newPos.y.toInt(), this);
+      cells.set(pos.x.toInt(), pos.y.toInt(), null);
       //print("Agent ${pos} moves from ${pos} to ${newPos}");
       stats.move(this);
       pos = newPos;
@@ -113,15 +107,15 @@ class Agent {
 
 class Segregation {
 
-  Coordinates _coords;
-  Cells<Agent> cells;
-  Distribution<Color> _distrib;
-  Statistics stats;
+  late Coordinates _coords;
+  late Cells<Agent> cells;
+  late Distribution<Color> _distrib;
+  late Statistics stats;
 
-  int m;                            // Breite
-  int n;                            // Höhe
-  double empty;                     // Anzahl leerer Zellen in Prozent
-  int numberOfSame;                 // Anzahl gleicher Nachbarn
+  int m = 0;                            // Breite
+  int n = 0;                            // Höhe
+  double empty = 0.0;                     // Anzahl leerer Zellen in Prozent
+  int numberOfSame = 0;                 // Anzahl gleicher Nachbarn
 
   void setup(int m, int n) {
     this.m = m;
@@ -147,7 +141,7 @@ class Segregation {
 
   void step() {
     stats.step();
-    cells.elements.forEach( (Agent a) {
+    cells.elements.forEach( (Agent? a) {
       if (a != null) a.step();
     });
   }
@@ -156,6 +150,6 @@ class Segregation {
     stats.report();
   }
 
-  Agent agent(int i, int j) => cells.get(i, j);
+  Agent? agent(int i, int j) => cells.get(i, j);
 
 }
