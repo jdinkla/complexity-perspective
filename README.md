@@ -1,29 +1,19 @@
 Complexity Perspective
 =============================
 
-This is the source code for the book
+This repository contains the source code for the book
 
-["Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft"](http://komplexeperspektive.dinkla.com).
+["Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft"](https://complex-perspective.dinkla.net).
 
-The book is in german, so the rest of the description is in german, too.
+The code is organized into the following directories:
 
----
+- In the `db` directory you can find the statements from chapter 6 for the databases.
+- In the `test` directory you can find the unit tests for the Dart code.
+- In the `web` directory you can find the code for the simulations.
 
-Dieses Repository enthält den Code für das Buch
+To run the code locally, you need to install Dart. You can get it from [https://www.dartlang.org/](https://www.dartlang.org/).
 
-["Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft"](http://komplexeperspektive.dinkla.com).
-
-
-Der Code ist auf die folgenden Verzeichnisse verteilt:
-
-* Im Verzeichnis db befinden sich die Statemens aus Kapitel 6 für die Datenbanken.
-* Im Verzeichnis test befinden sich die Unit-Tests für den Dart-Code.
-* Im Verzeichnis web befindet sich der Code für die Simulationen.
-
-Wenn man den Code auf dem eigenen Rechner ausprobieren möchte, muss dafür Dart installiert werden. Dart gibt es unter [https://www.dartlang.org/](https://www.dartlang.org/).
-
-Außerdem muss der Code aus diesem Repository ausgecheckt werden. Dieses kann durch druck auf den Button "Download ZIP" oder
-durch Benutzung von git geschehen.
+Next, check out the code from this repository. You can do this by clicking the “Download ZIP” button or by using git:
 
 ```
 $ git clone https://github.com/jdinkla/complexity-perspective.git
@@ -32,17 +22,16 @@ $ pub get
 $ pub serve
 ```
 
-Daraufhin können die Webseiten auf dem lokalen Rechner unter
-[http://localhost:8080/index.html](http://localhost:8080/index.html) erreicht werden.
+After that, you can access the web pages locally at:
+[http://localhost:8080/index.html](http://localhost:8080/index.html).
 
 
 Author
 ------
-Written by [Jörn Dinkla](http://www.dinkla.com).
+Written by [Jörn Dinkla](http://www.dinkla.net).
 
 Copyright
 ---------
 
-(C) 2016 Jörn Dinkla, [komplexeperspektive.dinkla.com](http://komplexeperspektive.dinkla.com)
-
+(C) 20162-2025 Jörn Dinkla, [complex-perspective.dinkla.net](https://complex-perspective.dinkla.net)
 
