@@ -14,7 +14,7 @@ import '../web/array.dart';
 void main() {
   group("Array", () {
     test("constructor", () {
-      var a = new Array<int>(2, 2);
+      var a = Array<int>(2, 2);
       expect(a.get(0,0), equals(null));
       expect(a.get(0,1), equals(null));
       expect(a.get(1,0), equals(null));
@@ -22,7 +22,7 @@ void main() {
     });
 
     test(".set and .get", () {
-      var a = new Array<int>(2, 2);
+      var a = Array<int>(2, 2);
       expect(a.get(0,0), equals(null));
       expect(a.get(0,1), equals(null));
       expect(a.get(1,0), equals(null));
@@ -42,7 +42,7 @@ void main() {
     });
 
     test(".set1 and .get1", () {
-      var a = new Array<int>(2, 2);
+      var a = Array<int>(2, 2);
       expect(a.get1(0), equals(null));
       expect(a.get1(1), equals(null));
       expect(a.get1(2), equals(null));
@@ -62,7 +62,7 @@ void main() {
     });
 
     test(".clear", () {
-      var a = new Array<int>(2, 2);
+      var a = Array<int>(2, 2);
       a.set1(0, 1);
       a.set1(3, 2);
 

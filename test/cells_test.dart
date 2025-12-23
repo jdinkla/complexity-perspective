@@ -14,10 +14,11 @@ import '../web/coordinate.dart';
 
 void main() {
 
-  Cells<int> a, b;
+  late Cells<int> a;
+  late Cells<int> b;
 
   setUp(() async {
-    a = new Cells<int>(3, 3);
+    a = Cells<int>(3, 3);
     a.set(0, 0, 1);
     a.set(1, 0, 2);
     a.set(2, 0, 3);
@@ -28,7 +29,7 @@ void main() {
     a.set(1, 2, 8);
     a.set(2, 2, 9);
 
-    b = new Cells<int>(3, 4);
+    b = Cells<int>(3, 4);
   });
 
   group("Cells", () {
@@ -73,7 +74,7 @@ void main() {
       a.set(1, 1, null);
       a.calcEmpty();
       expect(a.emptyCells.length, equals(1));
-      var oldC = new Coordinate(2, 2);
+      var oldC = Coordinate(2, 2);
       var c = a.getEmpty(oldC);
       expect(a.emptyCells.length, equals(1));
       expect(a.emptyCells, equals([8]));

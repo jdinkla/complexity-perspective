@@ -14,22 +14,22 @@ import '../web/vector.dart';
 void main() {
   group("Vector", () {
     test("constructor", () {
-      var v = new Vector(1, 2);
+      var v = Vector(1, 2);
       expect(v.x, equals(1));
       expect(v.y, equals(2));
 
-      var w = new Vector(-1, -2);
+      var w = Vector(-1, -2);
       expect(w.x, equals(-1));
       expect(w.y, equals(-2));
 
-      var u = new Vector(1.1, -2.2);
+      var u = Vector(1.1, -2.2);
       expect(u.x, equals(1.1));
       expect(u.y, equals(-2.2));
     });
 
     test(".+", () {
-      var v = new Vector(1, 2);
-      var w = new Vector(-1, -2);
+      var v = Vector(1, 2);
+      var w = Vector(-1, -2);
       var u = v + w;
       expect(u.x, equals(0));
       expect(u.y, equals(0));
@@ -48,7 +48,7 @@ void main() {
 
     test("==", () {
       var u = Vector.origin;
-      var v = new Vector(0, 0);
+      var v = Vector(0, 0);
       assert(!identical(u, v));
       assert(u == v);
     });

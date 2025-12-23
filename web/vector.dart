@@ -17,12 +17,12 @@ class Vector {
 
   const Vector(this.x, this.y);
 
-  Vector operator +(Vector v) => new Vector(x + v.x, y + v.y);
+  Vector operator +(Vector v) => Vector(x + v.x, y + v.y);
 
   String toString() => "($x, $y)";
 
   @override
-  bool operator ==(Vector v) => x == v.x && y == v.y;
+  bool operator ==(Object? other) => other is Vector && x == other.x && y == other.y;
 
   // if one overrides ==, you should also override hashCode
   @override

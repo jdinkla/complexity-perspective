@@ -1,17 +1,53 @@
-.buildlog
-.DS_Store
-#.idea TODO bei release herausnehmen
+# Dart/Pub
+.dart_tool/
 .packages
 .pub/
 build/
-packages
 pubspec.lock
 
-#
-# additions by Jörn Dinkla, see https://intellij-support.jetbrains.com/hc/en-us/articles/206827587-How-to-manage-projects-under-Version-Control-Systems
-#
+# Compiled JavaScript files
+*.dart.js
+*.dart.js.map
+*.js.map
+*.js.deps
+*.js.info
 
-.idea/workspace.xml
-.idea/tasks.xml
+# Coverage
+coverage/
+*.lcov
+
+# IDE - IntelliJ IDEA / Android Studio
+.idea/
+*.iml
 *.iws
+*.ipr
+out/
 
+# IDE - VSCode
+.vscode/
+*.code-workspace
+
+# IDE - Other
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+.buildlog
+
+# Temporary files
+*.tmp
+*.temp
+
+# Old Dart 1.x artifacts (kept for reference)
+packages

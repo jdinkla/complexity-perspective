@@ -9,15 +9,15 @@
  */
 
 import 'package:test/test.dart';
-import '../web/distribution.dart';
+import '../web/Distribution.dart';
 
 void main() {
 
   final List<double> probs = [0.1, 0.6, 0.3];
-  Distribution<String> d;
+  late Distribution<String> d;
 
   setUp(() async {
-    d = new Distribution<String>(["a", "b", "c"], probs);
+    d = Distribution<String>(["a", "b", "c"], probs);
   });
 
   group("Distribution", () {
@@ -45,16 +45,16 @@ void main() {
 
     test("next", () {
       final int numNext = 1000;
-      var m = new Map<String, int>();
+      var m = <String, int>{};
       m["a"] = 0; m["b"] = 0; m["c"] = 0;
       for (var i = 0; i < numNext; i++) {
         var n = d.next();
-        m[n] += 1;
+        m[n] = (m[n] ?? 0) + 1;
       }
       //print(m);
-      assert(m["a"] < m["b"]);
-      assert(m["a"] < m["c"]);
-      assert(m["c"] < m["b"]);
+      assert((m["a"] ?? 0) < (m["b"] ?? 0));
+      assert((m["a"] ?? 0) < (m["c"] ?? 0));
+      assert((m["c"] ?? 0) < (m["b"] ?? 0));
     });
 
   });

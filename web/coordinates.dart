@@ -26,7 +26,7 @@ class Coordinates {
     return j * m + i;
   }
 
-  int index2(Coordinate c) => index(c.x, c.y);
+  int index2(Coordinate c) => index(c.x.toInt(), c.y.toInt());
 
   int previousX(int i) => i == 0 ? m-1 : i-1;
 
@@ -39,7 +39,7 @@ class Coordinates {
   Coordinate position(int i) {
     int x = i % m;
     int y = i ~/ m;
-    return new Coordinate(x, y);
+    return Coordinate(x, y);
   }
 
 }

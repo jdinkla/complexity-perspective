@@ -17,15 +17,15 @@ class Distribution<T> {
 
   List<T> elems;
   List<double> probabilities;
-  List<double> cumulative;
-  Random random;
+  late List<double> cumulative;
+  late Random random;
 
   Distribution(this.elems, this.probabilities) {
     assert(elems.length == probabilities.length);
-    var sum = probabilities.fold(0, (a, b) => a+b);
+    var sum = probabilities.fold(0.0, (a, b) => a+b);
     assert(sum == 1.0);
     cumulative = cumulativeSum(probabilities);
-    random = new Random(); // TODO hier kann man die Generierung deterministisch machen!
+    random = Random(); // TODO hier kann man die Generierung deterministisch machen!
   }
 
   T next() {
@@ -49,9 +49,9 @@ class Distribution<T> {
     return min(i, n-1);
   }
 
-  static List<num> cumulativeSum(List<num> ls) {
-    num sum = 0;
-    var rs = [];
+  static List<double> cumulativeSum(List<double> ls) {
+    double sum = 0;
+    var rs = <double>[];
     ls.forEach( (x) {
       sum += x;
       rs.add(sum);

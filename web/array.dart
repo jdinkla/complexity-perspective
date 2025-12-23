@@ -17,29 +17,29 @@ class Array<T> {
 
   final int m;
   final int n;
-  List<T> elements;
-  Coordinates coords;
+  late List<T?> elements;
+  late Coordinates coords;
 
   Array(this.m, this.n) {
     assert(1 <= m);
     assert(1 <= n);
-    elements = new List<T>(m*n);
-    coords = new Coordinates(m, n);
+    elements = List<T?>.filled(m*n, null);
+    coords = Coordinates(m, n);
   }
 
-  void set(int i, int j, T v) {
+  void set(int i, int j, T? v) {
     elements[coords.index(i, j)] = v;
   }
 
-  T get(int i, int j) {
+  T? get(int i, int j) {
     return elements[coords.index(i, j)];
   }
 
-  void set1(int i, T v) {
+  void set1(int i, T? v) {
     elements[i] = v;
   }
 
-  T get1(int i) {
+  T? get1(int i) {
     return elements[i];
   }
 

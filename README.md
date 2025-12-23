@@ -1,9 +1,11 @@
-Complexity Perspective
-=============================
+# Complexity Perspective
 
-This repository contains the source code for the book
+This repository is based on the source code for the book ["Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft"](https://complex-perspective.dinkla.net).
 
-["Die ‚komplexe‘ Perspektive - Einführung in die digitale Wirtschaft"](https://complex-perspective.dinkla.net).
+The code was updated to newer versions of Dart. The original code is available at
+the branch [Originial_Version_From_2016](https://github.com/jdinkla/complexity-perspective/tree/Originial_Version_From_2016).
+
+## Organization
 
 The code is organized into the following directories:
 
@@ -11,27 +13,85 @@ The code is organized into the following directories:
 - In the `test` directory you can find the unit tests for the Dart code.
 - In the `web` directory you can find the code for the simulations.
 
-To run the code locally, you need to install Dart. You can get it from [https://www.dartlang.org/](https://www.dartlang.org/).
+## Requirements
 
-Next, check out the code from this repository. You can do this by clicking the “Download ZIP” button or by using git:
+- **Dart SDK 3.0+** - You can get it from [https://dart.dev/get-dart](https://dart.dev/get-dart)
+- **Just** (optional) - A command runner for convenient project tasks. Install from [https://github.com/casey/just](https://github.com/casey/just)
 
+## Quick Start
+
+### Using Just (Recommended)
+
+If you have [Just](https://github.com/casey/just) installed, you can use these commands:
+
+```bash
+# Get dependencies
+just deps
+
+# Run tests
+just test
+
+# Build the project (compile Dart to JavaScript)
+just build
+
+# Run the web application locally
+just run
+# or
+just serve
 ```
-$ git clone https://github.com/jdinkla/complexity-perspective.git
-$ cd complexity-perspective
-$ pub get
-$ pub serve
+
+After running `just serve`, you can access the web pages locally at:
+[http://localhost:8080/index.html](http://localhost:8080/index.html)
+
+### Using Dart Commands Directly
+
+```bash
+# Clone the repository
+git clone https://github.com/jdinkla/complexity-perspective.git
+cd complexity-perspective
+
+# Get dependencies
+dart pub get
+
+# Run tests
+dart test
+
+# Build the project (compile Dart web files to JavaScript)
+dart compile js web/main.dart -o web/main.dart.js
+dart compile js web/einfaches_system_web.dart -o web/einfaches_system_web.dart.js
+dart compile js web/kompliziertes_system_web.dart -o web/kompliziertes_system_web.dart.js
+dart compile js web/segregation_web.dart -o web/segregation_web.dart.js
+
+# Serve the web application (requires Python)
+cd web
+python3 -m http.server 8080
 ```
 
-After that, you can access the web pages locally at:
-[http://localhost:8080/index.html](http://localhost:8080/index.html).
+Then open [http://localhost:8080/index.html](http://localhost:8080/index.html) in your browser.
 
+## Available Just Commands
 
-Author
-------
-Written by [Jörn Dinkla](http://www.dinkla.net).
+- `just test` - Run all tests
+- `just build` - Compile Dart web files to JavaScript
+- `just run` / `just serve` - Start local web server
+- `just deps` - Get dependencies
+- `just clean` - Clean build artifacts
+- `just format` - Format code
+- `just analyze` - Analyze code for issues
+- `just test-coverage` - Run tests with coverage report
+- `just test-watch` - Run tests in watch mode
 
-Copyright
----------
+## Project Structure
 
-(C) 20162-2025 Jörn Dinkla, [complex-perspective.dinkla.net](https://complex-perspective.dinkla.net)
+- `web/` - Web application code and HTML files
+  - `index.html` - Main entry point
+  - `einfaches_system.html` - Simple model with three planets
+  - `kompliziertes_system.html` - Complex model with three planets and gravity
+  - `segregation.html` - Complex model with segregation
+- `test/` - Unit tests for the Dart code
+- `db/` - Database statements from chapter 6
+
+## Copyright
+
+(C) 2016-2025 [Jörn Dinkla](http://www.dinkla.net), [complex-perspective.dinkla.net](https://complex-perspective.dinkla.net)
 

@@ -21,7 +21,7 @@ class Coordinate {
   String toString() => "($x, $y)";
 
   @override
-  bool operator ==(Coordinate p) => x == p.x && y == p.y;
+  bool operator ==(Object? other) => other is Coordinate && x == other.x && y == other.y;
 
   // if one overrides ==, you should also override hashCode
   @override

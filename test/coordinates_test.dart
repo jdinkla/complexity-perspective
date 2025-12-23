@@ -14,10 +14,10 @@ import '../web/coordinate.dart';
 
 void main() {
 
-  Coordinates c;
+  late Coordinates c;
 
   setUp(() async {
-    c = new Coordinates(3, 4);
+    c = Coordinates(3, 4);
   });
 
   group("Coordinates", () {
@@ -54,11 +54,11 @@ void main() {
     });
 
     test("position", () {
-      expect(c.position(0), equals(new Coordinate(0, 0)));
-      expect(c.position(1), equals(new Coordinate(1, 0)));
-      expect(c.position(2), equals(new Coordinate(2, 0)));
-      expect(c.position(3), equals(new Coordinate(0, 1)));
-      expect(c.position(11), equals(new Coordinate(2, 3)));
+      expect(c.position(0), equals(Coordinate(0, 0)));
+      expect(c.position(1), equals(Coordinate(1, 0)));
+      expect(c.position(2), equals(Coordinate(2, 0)));
+      expect(c.position(3), equals(Coordinate(0, 1)));
+      expect(c.position(11), equals(Coordinate(2, 3)));
     });
 
   });
