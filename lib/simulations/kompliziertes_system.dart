@@ -1,7 +1,4 @@
 /**
- * (c) 2016 Jörn Dinkla, www.dinkla.net
- * See the file LICENSE in the ROOT directory.
- *
  * Code für das komplizierte System mit Schwerkraft in Abschnitt 2.3
  */
 

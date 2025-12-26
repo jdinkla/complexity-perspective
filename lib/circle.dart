@@ -1,7 +1,4 @@
 /**
- * (c) 2016 Jörn Dinkla, www.dinkla.net
- * See the file LICENSE in the ROOT directory.
- *
  * Ein Kreis bzw. ein "Planet". Siehe Abschnitt 2.3 im Buch.
  */
 

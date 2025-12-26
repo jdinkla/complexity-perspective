@@ -4,11 +4,6 @@
  *
  * An array of m*n elements.
  *
- *
- * (c) 2015 Jörn Dinkla, www.dinkla.net
- *
- * See the file LICENSE in the ROOT directory.
- *
  */
 
 import 'package:complexity_perspective/core/array.dart';
