@@ -1,0 +1,104 @@
+/* Custom CSS Styles for Jekyll Site */
+
+/* Color Variables (CSS Custom Properties) */
+:root {
+  --color-primary: #2563EB;
+  --color-secondary: #F59E0B;
+  --color-background-light: #F8FAFC;
+  --color-background-dark: #0F172A;
+  --color-surface-light: #FFFFFF;
+  --color-surface-dark: #1E293B;
+  --color-text-light: #334155;
+  --color-text-dark: #CBD5E1;
+  --color-scrollbar-light: #CBD5E1;
+  --color-scrollbar-dark: #475569;
+  --color-overlay: rgba(0, 0, 0, 0.9);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-scrollbar-light);
+  border-radius: 20px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color-scrollbar-dark);
+}
+
+/* Lightbox Modal Styles */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.lightbox-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-overlay);
+  cursor: pointer;
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 10000;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.lightbox-image-full {
+  max-width: 100%;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Ensure images are clickable */
+.lightbox-image {
+  transition: opacity 0.2s ease;
+}
+
+.lightbox-image:hover {
+  opacity: 0.9;
+}
+

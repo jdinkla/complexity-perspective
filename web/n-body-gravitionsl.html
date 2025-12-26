@@ -4,26 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N-Body Gravitational Dynamics | Three Planets Simulation</title>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/dinkla-25.css">
     <style>
-        :root {
-            --bg-primary: #0a0e14;
-            --bg-secondary: #111822;
-            --bg-tertiary: #1a2332;
-            --text-primary: #e8eaed;
-            --text-secondary: #9aa0a6;
-            --text-muted: #5f6368;
-            --accent-blue: #4a9eff;
-            --accent-red: #ff6b6b;
-            --accent-gray: #8b9dc3;
-            --accent-green: #50fa7b;
-            --grid-color: rgba(74, 158, 255, 0.08);
-            --grid-axis: rgba(74, 158, 255, 0.25);
-            --trail-opacity: 0.4;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-serif: 'Source Serif 4', Georgia, serif;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -31,84 +13,72 @@
         }
 
         body {
-            font-family: var(--font-mono);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        /* Scientific paper-style header */
+        h1 {
+            margin-bottom: 0.5em;
+        }
+
         .paper-header {
             text-align: center;
-            padding: 3rem 2rem 2rem;
-            border-bottom: 1px solid var(--bg-tertiary);
-            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-        }
-
-        .paper-header h1 {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
+            padding: 2rem 0;
+            margin-bottom: 20px;
         }
 
         .paper-header .subtitle {
-            font-family: var(--font-serif);
             font-style: italic;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            color: #666;
+            margin: 0.5em 0;
         }
 
         .paper-header .meta {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 0.5em;
         }
 
         /* Main container */
         .simulation-container {
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 0;
-            height: calc(100vh - 140px);
-            min-height: 500px;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            min-height: 600px;
         }
 
         @media (max-width: 1024px) {
             .simulation-container {
                 grid-template-columns: 1fr;
-                height: auto;
             }
             
             .canvas-wrapper {
-                height: 50vh;
-                min-height: 350px;
-            }
-            
-            .control-panel {
-                max-height: none;
+                height: 400px;
             }
         }
 
         /* Canvas area */
         .canvas-wrapper {
             position: relative;
-            background: var(--bg-primary);
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            min-height: 400px;
+            padding: 20px;
+            min-height: 500px;
         }
 
         .canvas-container {
             position: relative;
-            background: var(--bg-secondary);
-            border: 1px solid var(--bg-tertiary);
+            background: #fff;
+            border: 1px solid #ddd;
             border-radius: 4px;
             overflow: hidden;
             width: 100%;
@@ -124,8 +94,8 @@
         /* Coordinate labels */
         .axis-label {
             position: absolute;
-            font-size: 0.65rem;
-            color: var(--text-muted);
+            font-size: 0.75em;
+            color: #666;
             pointer-events: none;
         }
 
@@ -143,15 +113,16 @@
 
         /* Control panel */
         .control-panel {
-            background: var(--bg-secondary);
-            border-left: 1px solid var(--bg-tertiary);
-            padding: 1.5rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
             overflow-y: auto;
-            height: 100%;
+            max-height: calc(100vh - 200px);
         }
 
         .panel-section {
-            margin-bottom: 2rem;
+            margin-bottom: 2em;
         }
 
         .panel-section:last-child {
@@ -159,22 +130,22 @@
         }
 
         .section-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--bg-tertiary);
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1em;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid #ddd;
         }
 
         /* Mode toggle */
         .mode-toggle {
             display: flex;
-            background: var(--bg-primary);
+            background: #f8f9fa;
             border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 1rem;
+            margin-bottom: 1em;
+            border: 1px solid #ddd;
         }
 
         .mode-btn {
@@ -182,142 +153,142 @@
             padding: 0.75rem 1rem;
             background: transparent;
             border: none;
-            color: var(--text-secondary);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
+            color: #666;
+            font-size: 0.85em;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .mode-btn:hover {
-            color: var(--text-primary);
+            background: #e9ecef;
         }
 
         .mode-btn.active {
-            background: var(--accent-blue);
-            color: var(--bg-primary);
+            background: #2563EB;
+            color: white;
         }
 
         /* Controls */
         .control-row {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5em;
         }
 
         .control-label {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            font-size: 0.75rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .control-label span:first-child {
-            color: var(--text-secondary);
+            font-size: 0.9em;
+            margin-bottom: 0.5em;
+            color: #333;
         }
 
         .control-value {
-            color: var(--accent-blue);
+            color: #2563EB;
             font-weight: 500;
         }
 
         input[type="range"] {
             width: 100%;
-            height: 4px;
-            background: var(--bg-primary);
-            border-radius: 2px;
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
             appearance: none;
             cursor: pointer;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             appearance: none;
-            width: 14px;
-            height: 14px;
-            background: var(--accent-blue);
+            width: 16px;
+            height: 16px;
+            background: #2563EB;
             border-radius: 50%;
             cursor: pointer;
-            transition: transform 0.1s ease;
         }
 
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+        input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #2563EB;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
         }
 
         /* Buttons */
         .btn-group {
             display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 0.5em;
+            margin-bottom: 1em;
         }
 
         .btn {
             flex: 1;
             padding: 0.6rem 1rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--bg-tertiary);
+            background: #f8f9fa;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            color: var(--text-secondary);
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
+            color: #333;
+            font-size: 0.85em;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .btn:hover {
-            border-color: var(--accent-blue);
-            color: var(--text-primary);
+            background: #e9ecef;
         }
 
         .btn.primary {
-            background: var(--accent-blue);
-            border-color: var(--accent-blue);
-            color: var(--bg-primary);
+            background: #2563EB;
+            border-color: #2563EB;
+            color: white;
         }
 
         .btn.primary:hover {
-            background: #5eadff;
+            background: #1d4ed8;
         }
 
         /* Planet state display */
         .planet-state {
-            background: var(--bg-primary);
+            background: #f8f9fa;
             border-radius: 4px;
             padding: 0.75rem;
             margin-bottom: 0.75rem;
-            font-size: 0.7rem;
+            font-size: 0.85em;
+            border: 1px solid #ddd;
         }
 
         .planet-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            gap: 0.5em;
+            margin-bottom: 0.5em;
         }
 
         .planet-indicator {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
         }
 
-        .planet-indicator.red { background: var(--accent-red); }
-        .planet-indicator.blue { background: var(--accent-blue); }
-        .planet-indicator.gray { background: var(--accent-gray); }
+        .planet-indicator.red { background: #ef4444; }
+        .planet-indicator.blue { background: #2563EB; }
+        .planet-indicator.gray { background: #6b7280; }
 
         .planet-name {
-            color: var(--text-primary);
+            color: #333;
             font-weight: 500;
         }
 
         .planet-data {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.25rem 1rem;
-            color: var(--text-muted);
+            gap: 0.25em 1em;
+            color: #666;
+            font-size: 0.9em;
         }
 
         .planet-data .value {
-            color: var(--text-secondary);
+            color: #333;
             text-align: right;
         }
 
@@ -325,144 +296,148 @@
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
+            gap: 0.75em;
         }
 
         .stat-card {
-            background: var(--bg-primary);
-            padding: 0.75rem;
+            background: #f8f9fa;
+            padding: 0.75em;
             border-radius: 4px;
+            border: 1px solid #ddd;
         }
 
         .stat-label {
-            font-size: 0.65rem;
-            color: var(--text-muted);
+            font-size: 0.75em;
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .stat-value {
-            font-size: 1rem;
-            color: var(--accent-green);
-            font-weight: 500;
-            margin-top: 0.25rem;
+            font-size: 1.1em;
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 0.25em;
         }
 
         /* Checkbox */
         .checkbox-row {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
+            gap: 0.75em;
+            margin-bottom: 0.75em;
         }
 
         .checkbox-row input[type="checkbox"] {
             width: 16px;
             height: 16px;
-            accent-color: var(--accent-blue);
         }
 
         .checkbox-row label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
+            font-size: 0.9em;
+            color: #333;
             cursor: pointer;
         }
 
         /* Integration method select */
         select {
             width: 100%;
-            padding: 0.6rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--bg-tertiary);
+            padding: 0.6em;
+            background: #fff;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            color: var(--text-primary);
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
+            color: #333;
+            font-size: 0.9em;
             cursor: pointer;
         }
 
         select:focus {
             outline: none;
-            border-color: var(--accent-blue);
+            border-color: #2563EB;
         }
 
         /* Energy display */
         .energy-display {
-            background: var(--bg-primary);
+            background: #f8f9fa;
             border-radius: 4px;
-            padding: 0.75rem;
-            font-size: 0.7rem;
+            padding: 0.75em;
+            font-size: 0.85em;
+            border: 1px solid #ddd;
         }
 
         .energy-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5em;
         }
 
         .energy-row:last-child {
             margin-bottom: 0;
-            padding-top: 0.5rem;
-            border-top: 1px solid var(--bg-tertiary);
+            padding-top: 0.5em;
+            border-top: 1px solid #ddd;
         }
 
         .energy-label {
-            color: var(--text-muted);
+            color: #666;
         }
 
         .energy-value {
-            color: var(--text-secondary);
+            color: #333;
         }
 
-        .energy-value.kinetic { color: var(--accent-red); }
-        .energy-value.potential { color: var(--accent-blue); }
-        .energy-value.total { color: var(--accent-green); font-weight: 500; }
+        .energy-value.kinetic { color: #ef4444; }
+        .energy-value.potential { color: #2563EB; }
+        .energy-value.total { color: #10b981; font-weight: 600; }
 
         /* Preset scenarios */
         .preset-btn {
             display: block;
             width: 100%;
             text-align: left;
-            padding: 0.6rem 0.75rem;
-            background: var(--bg-primary);
-            border: 1px solid var(--bg-tertiary);
+            padding: 0.75em;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            color: var(--text-secondary);
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
+            color: #333;
+            font-size: 0.85em;
             cursor: pointer;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.5em;
             transition: all 0.2s ease;
         }
 
         .preset-btn:hover {
-            border-color: var(--accent-blue);
-            color: var(--text-primary);
+            background: #e9ecef;
+            border-color: #2563EB;
         }
 
         .preset-btn .preset-name {
-            color: var(--text-primary);
+            color: #333;
             font-weight: 500;
         }
 
         /* Footer note */
         .footer-note {
-            font-size: 0.65rem;
-            color: var(--text-muted);
+            font-size: 0.85em;
+            color: #666;
             font-style: italic;
-            font-family: var(--font-serif);
             line-height: 1.5;
-            padding-top: 1rem;
-            border-top: 1px solid var(--bg-tertiary);
+            padding-top: 1em;
+            border-top: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
-    <header class="paper-header">
-        <h1>N-Body Gravitational Dynamics Simulation</h1>
-        <p class="subtitle">Numerical integration of the classical three-body problem with configurable parameters</p>
-        <p class="meta">Based on "The Complex Perspective" Chapter 2 · Enhanced Implementation</p>
-    </header>
+    <h1>N-Body Gravitational Dynamics Simulation</h1>
+    
+    <div class="box">
+        <p>
+            This is an implementation of the complicated model as described in Section 2.3 of the book
+            <a href="https://www.dinkla.net/complex-perspective/">The Complex Perspective - Introduction to Digital Economy</a>.
+        </p>
+        <p class="subtitle">
+            Numerical integration of the classical three-body problem with configurable parameters
+        </p>
+    </div>
 
     <main class="simulation-container">
         <div class="canvas-wrapper">
@@ -1109,7 +1084,7 @@
                 const height = this.displayHeight;
                 
                 // Clear canvas
-                ctx.fillStyle = '#0a0e14';
+                ctx.fillStyle = '#fff';
                 ctx.fillRect(0, 0, width, height);
                 
                 // Draw grid
@@ -1141,7 +1116,7 @@
                 const width = this.displayWidth;
                 const height = this.displayHeight;
                 
-                ctx.strokeStyle = 'rgba(74, 158, 255, 0.08)';
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
                 ctx.lineWidth = 1;
                 
                 // Vertical lines
@@ -1163,7 +1138,7 @@
                 }
                 
                 // Axes
-                ctx.strokeStyle = 'rgba(74, 158, 255, 0.25)';
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
                 ctx.lineWidth = 1;
                 
                 // X axis
@@ -1185,8 +1160,8 @@
                 }
                 
                 // Axis labels
-                ctx.fillStyle = 'rgba(74, 158, 255, 0.5)';
-                ctx.font = '10px "JetBrains Mono"';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+                ctx.font = '10px monospace';
                 ctx.textAlign = 'center';
                 
                 for (let x = 0; x <= 10; x += 2) {
