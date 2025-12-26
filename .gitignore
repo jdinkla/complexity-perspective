@@ -4,6 +4,7 @@
 .pub/
 build/
 pubspec.lock
+dist/
 
 # Compiled JavaScript files
 *.dart.js

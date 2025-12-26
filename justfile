@@ -54,7 +54,7 @@ open:
 # Clean build artifacts
 clean:
     rm -rf .dart_tool
-    rm -rf build
+    rm -rf build dist
     find web -name "*.dart.js" -type f -delete
     find web -name "*.js.map" -type f -delete
     find web -name "*.js.deps" -type f -delete
@@ -76,4 +76,18 @@ test-coverage:
 # Run tests in watch mode
 test-watch:
     dart test --watch
+
+# Create distribution for web server (HTML and compiled JS)
+dist:
+    @echo "Creating distribution..."
+    @just build
+    @echo "Creating dist directory..."
+    @rm -rf dist
+    @mkdir -p dist/web dist/build
+    @echo "Copying HTML files..."
+    @cp web/*.html dist/web/
+    @echo "Copying compiled JavaScript files..."
+    @cp build/*.js dist/build/ 2>/dev/null || true
+    @echo "Distribution created in dist/ directory"
+    @echo "To serve: cd dist && python3 -m http.server 8000"
 
