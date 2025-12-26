@@ -373,8 +373,8 @@
     }
     
     .legend-swatch.group-b {
-      background: linear-gradient(135deg, var(--accent-pink), #f472b6);
-      box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+      background: linear-gradient(135deg, var(--accent-green), #34d399);
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
     }
     
     .legend-swatch.empty {
@@ -412,8 +412,8 @@
     }
     
     .cell.group-b {
-      background: linear-gradient(135deg, var(--accent-pink), #f472b6);
-      box-shadow: 0 0 8px rgba(236, 72, 153, 0.4);
+      background: linear-gradient(135deg, var(--accent-green), #34d399);
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
     }
     
     .cell.group-a.unhappy {
@@ -423,7 +423,7 @@
     }
     
     .cell.group-b.unhappy {
-      background: linear-gradient(135deg, var(--accent-pink), #f472b6);
+      background: linear-gradient(135deg, var(--accent-green), #34d399);
       box-shadow: 0 0 0 2px var(--accent-red), 0 0 12px rgba(239, 68, 68, 0.6);
       animation: pulse-unhappy 1s ease-in-out infinite;
     }
@@ -509,7 +509,7 @@
         
         <div class="control-group">
           <label class="toggle-label" id="diamond-toggle">
-            <div class="toggle-track" id="toggle-track">
+            <div class="toggle-track active" id="toggle-track">
               <div class="toggle-thumb"></div>
             </div>
             Group A as Diamonds
@@ -590,7 +590,7 @@
     let grid = [];
     let isRunning = false;
     let intervalId = null;
-    let showDiamonds = false;
+    let showDiamonds = true;
     let stats = { step: 0, happyPercentage: 0, avgSimilarity: 0, movesThisStep: 0 };
     
     // DOM Elements
