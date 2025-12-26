@@ -1,5 +1,5 @@
 /**
- * Ein zweidimensionaler Vektor.
+ * A two-dimensional vector.
  */
 
 import 'dart:math';

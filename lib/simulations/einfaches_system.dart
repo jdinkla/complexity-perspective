@@ -1,5 +1,5 @@
 /**
- * Code für das einfache System in Abschnitt 2.3
+ * Code for the simple system in Section 2.3
  */
 
 import 'package:complexity_perspective/core/vector.dart';
@@ -25,16 +25,16 @@ simulation() {
 
   num t = 0;
   while (t < 10) {
-    print("t=$t: $u, $v, $w");    // gibt u, v und w aus
+    print("t=$t: $u, $v, $w");    // outputs u, v and w
     u.step(); v.step(); w.step();
     t += 1;
   }
 }
 
 main(List<String> args) {
-  print('--- Beispiel aus dem Buch in Abschnitt 2.3 -----');
+  print('--- Example from the book in Section 2.3 -----');
   init();
-  print('--- Simulation aus dem Buch in Abschnitt 2.3 ---');
+  print('--- Simulation from the book in Section 2.3 ---');
   simulation();
   print('--- Ende  --------------------------------------');
 }

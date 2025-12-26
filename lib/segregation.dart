@@ -1,5 +1,5 @@
 /**
- * Code für das Schelling-Modell in Abschnitt 2.3
+ * Code for the Schelling model in Section 2.3
  */
 
 import 'package:complexity_perspective/cells.dart';
@@ -109,10 +109,10 @@ class Segregation {
   late Distribution<Color> _distrib;
   late Statistics stats;
 
-  int m = 0;                            // Breite
-  int n = 0;                            // Höhe
-  double empty = 0.0;                     // Anzahl leerer Zellen in Prozent
-  int numberOfSame = 0;                 // Anzahl gleicher Nachbarn
+  int m = 0;                            // Width
+  int n = 0;                            // Height
+  double empty = 0.0;                     // Number of empty cells in percent
+  int numberOfSame = 0;                 // Number of same neighbors
 
   void setup(int m, int n) {
     this.m = m;

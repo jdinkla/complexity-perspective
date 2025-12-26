@@ -1,5 +1,5 @@
 /**
- * Code für das einfache System in Abschnitt 2.3
+ * Code for the simple system in Section 2.3
  */
 
 import 'package:complexity_perspective/simulations/segregation.dart';
@@ -23,14 +23,14 @@ class SegregationConsole extends Segregation {
     this.empty = empty;
     this.numberOfSame = numberOfSame;
     setup(size, size);
-    format("Initialisierung");
+    format("Initialization");
     printCells();
     for (int t = 0; t < numSteps; t++ ) {
       format("Step ${t+1}");
       step();
       printCells();
       if (!stats.hasChanged) {
-        format("Abbruch, weil alle Agenten zufrieden sind");
+        format("Termination, because all agents are satisfied");
         break;
       }
     }

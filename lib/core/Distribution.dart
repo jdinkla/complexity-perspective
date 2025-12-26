@@ -20,7 +20,7 @@ class Distribution<T> {
     var sum = probabilities.fold(0.0, (a, b) => a+b);
     assert(sum == 1.0);
     cumulative = cumulativeSum(probabilities);
-    random = Random(); // TODO hier kann man die Generierung deterministisch machen!
+    random = Random(); // TODO here one can make the generation deterministic!
   }
 
   T next() {

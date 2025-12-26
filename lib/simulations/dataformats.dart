@@ -1,5 +1,5 @@
 /**
- * Die verschiedenen Datenformate aus Kapitel 6.
+ * The various data formats from Chapter 6.
  */
 
 import 'package:complexity_perspective/core/circle.dart';
@@ -17,7 +17,7 @@ class ConvCircle extends Circle {
 
   String toCSV() => "$color$sep$mass$sep$position$sep$velocity";
 
-  // Konvertiere zu Map
+  // Convert to Map
   Map toMap() => {"color": color, "mass": mass, "position": position.toString(), "velocity": velocity.toString() };
 
   String toJSON() => JSON.encode(toMap());
@@ -31,7 +31,7 @@ class ConvCircle extends Circle {
 
 }
 
-// Die Objekte
+// The objects
 var u = new ConvCircle(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(2, 0));
 var v = new ConvCircle(color: "grau", mass: 4, position: new Vector(5, 3), velocity: new Vector(0, 0));
 var w = new ConvCircle(color: "rot", mass: 2, position: new Vector(9, 4), velocity: new Vector(-1, -1));

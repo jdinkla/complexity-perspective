@@ -1,5 +1,5 @@
 /**
- * Code für das Schelling-Modell in Abschnitt 2.3
+ * Code for the Schelling model in Section 2.3
  */
 
 import 'dart:html';
@@ -90,7 +90,7 @@ class SegregationWeb extends Segregation {
 
 main() {
 
-  // Startwerte
+  // Initial values
   final int numCellsX = 20;
   final int numCellsY = 20;
   final double startEmpty = 0.05;
@@ -106,7 +106,7 @@ main() {
   }
   var s = new SegregationWeb(canvasElement);
 
-  // Ermittle die HTML-Elemente
+  // Get the HTML elements
   var doc = window.document;
   final numCellsXElement = doc.querySelector('#numCellsX') as NumberInputElement?;
   final numCellsYElement = doc.querySelector('#numCellsY') as NumberInputElement?;
@@ -132,7 +132,7 @@ main() {
   nieCellBetween = cellBetweenElement;
   nieRedDiamond = redDiamondElement;
 
-  // Setze die Startwerte ein
+  // Set the initial values
   nieNumCellsX.value = numCellsX.toString();
   nieNumCellsY.value = numCellsY.toString();
   nieEmptyPercentage.value = startEmpty.toString();
@@ -147,14 +147,14 @@ main() {
     s.requestRedraw();
   });
 
-  // Wenn der "Step"-Button gedrückt wird, wird step() aufgerufen
+  // When the "Step" button is pressed, step() is called
   doc.querySelector("#stepButton")?.onClick.listen((_) {
     s.step();
     s.requestRedraw();
   });
 
-  // Wenn der "Setup"-Button gedrückt wird, wird setup() mit den
-  // aktuellen Parametern aufgerufen
+  // When the "Setup" button is pressed, setup() is called with the
+  // current parameters
   doc.querySelector("#setupButton")?.onClick.listen((_) {
     final int m = int.parse(nieNumCellsX.value ?? "0");
     final int n = int.parse(nieNumCellsY.value ?? "0");
@@ -168,7 +168,7 @@ main() {
     s.requestRedraw();
   });
 
-  // Den ersten Aufruf müssen wir selber machen
+  // We need to make the first call ourselves
   s.empty = startEmpty;
   s.numberOfSame = startNumberOfSame;
   s.widthOfCell = elemWidth;

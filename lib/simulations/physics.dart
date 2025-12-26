@@ -1,5 +1,5 @@
 /**
- * Code für die Physik-Modelle in Abschnitt 2.3
+ * Code for the physics models in Section 2.3
  */
 
 import 'dart:html';
@@ -89,7 +89,7 @@ class Physics {
     _pe.text = "Step ${time}";
     ctx.clearRect(0, 0, width, height);
 
-    // Die Achsen
+    // The axes
     ctx.lineWidth = 1;
     ctx.strokeStyle = "black";
     ctx.beginPath();
@@ -105,7 +105,7 @@ class Physics {
     }
     ctx.closePath();
     ctx.stroke();
-    // Die Planeten
+    // The planets
     objects.forEach( (Circle c) {
       Vector p = translate(c.position);
       ctx.beginPath();

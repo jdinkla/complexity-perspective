@@ -1,5 +1,5 @@
 /**
- * Ein Kreis bzw. ein "Planet" mit Schwerkraft. Siehe Abschnitt 2.3 im Buch.
+ * A circle or "planet" with gravity. See Section 2.3 in the book.
  */
 
 import 'package:complexity_perspective/core/vector.dart';
@@ -9,8 +9,8 @@ import 'dart:math';
 num softeningSquared = 0.0;
 
 // Adapted from [Wil13, Listing 14.1]
-// Die Variablennamen sind so aus Wil13 übernommen.
-// Der Code hat es nicht in das Buch geschafft, weil er viele Leser verwirren könnte.
+// The variable names are taken from Wil13 as is.
+// This code did not make it into the book because it could confuse many readers.
 Vector bodyBodyInteraction(Vector v, Vector w, num mass1) {
   num dx = w.x - v.x;
   num dy = w.y - v.y;
@@ -23,7 +23,7 @@ Vector bodyBodyInteraction(Vector v, Vector w, num mass1) {
 
 class Circle2 extends Circle {
 
-  // Enthält die anderen Planeten
+  // Contains the other planets
   List<Circle2>? objects;
 
   Circle2({String color = "", num mass = 0.0, Vector? position, Vector? velocity})

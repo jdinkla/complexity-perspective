@@ -1,5 +1,5 @@
 /**
- * Ein Kreis bzw. ein "Planet". Siehe Abschnitt 2.3 im Buch.
+ * A circle or "planet". See Section 2.3 in the book.
  */
 
 import 'package:complexity_perspective/vector.dart';
