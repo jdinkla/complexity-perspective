@@ -102,3 +102,6 @@ jekyll-build:
     @echo "Jekyll site ready in _site/ directory"
     @echo "You can now commit _site/ or deploy it"
 
+# Serve distribution on http://localhost:8000
+serve-dist:
+    @cd dist && python3 -m http.server 8000
