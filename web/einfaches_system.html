@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="scaffolded-by" content="https://github.com/google/stagehand">
+    <link rel="stylesheet" href="css/dinkla-25.css">
+    <script async src="../build/einfaches_system_web.dart.js"></script>
+    <title>Simple Model with Three Planets</title>
+</head>
+
+<body>
+
+<h1>Simple Model with Three Planets</h1>
+
+<div id="main" class="box">
+
+    <p>
+        This is an implementation of the simple model as described in Section 2.3 of the book
+        <a href="https://www.dinkla.net/complex-perspective/">The Complex Perspective - Introduction to Digital Economy</a>.
+    </p>
+
+    <div id="errors">
+        <p id="error_msg" class="error_msg"></p>
+    </div>
+
+    <div class="control">
+        <div class="buttonBar">
+            <input type="button" id="setup" value="Setup" />
+            <input type="button" id="step" value="Step" />
+        </div>
+    </div>
+
+    <div>
+        <p id="stepCounter"></p>
+        <canvas id="area" height="630px" style="border: 1px solid #AAAAAA; padding: 5px;">
+            This program requires a browser that supports HTML5 Canvas.
+        </canvas>
+    </div>
+
+</div>
+
+</body>
+</html>

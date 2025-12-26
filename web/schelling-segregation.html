@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schelling Model of Segregation</title>
+  <link rel="stylesheet" href="css/dinkla-25.css">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      margin-bottom: 0.5em;
+    }
+    
+    .box {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .container {
+      display: grid;
+      grid-template-columns: minmax(300px, 400px) 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .container-item {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 20px;
+    }
+    
+    .control-group {
+      margin-bottom: 1.5em;
+    }
+    
+    .control-row {
+      display: flex;
+      gap: 1em;
+    }
+    
+    .control-row .control-group {
+      flex: 1;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+      font-weight: 500;
+    }
+    
+    input[type="range"] {
+      width: 100%;
+    }
+    
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85em;
+      color: #666;
+      margin-top: 0.25em;
+    }
+    
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 0.75em;
+      cursor: pointer;
+    }
+    
+    .toggle-track {
+      width: 44px;
+      height: 24px;
+      background: #ccc;
+      border-radius: 12px;
+      position: relative;
+      transition: background 0.3s ease;
+    }
+    
+    .toggle-track.active {
+      background: #2563EB;
+    }
+    
+    .toggle-thumb {
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: left 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    .toggle-track.active .toggle-thumb {
+      left: 23px;
+    }
+    
+    .control {
+      margin: 20px 0;
+    }
+    
+    .buttonBar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    button, input[type="button"] {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f8f9fa;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s ease;
+    }
+    
+    button:hover, input[type="button"]:hover {
+      background: #e9ecef;
+    }
+    
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .button-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .btn-start, .btn-pause {
+      flex: 1;
+      background: #2563EB;
+      color: white;
+      border-color: #2563EB;
+    }
+    
+    .btn-start:hover, .btn-pause:hover {
+      background: #1d4ed8;
+    }
+    
+    .btn-step {
+      flex: 1;
+    }
+    
+    .btn-reset {
+      width: 100%;
+    }
+    
+    .stats-section {
+      margin-top: 2em;
+      padding-top: 1.5em;
+      border-top: 1px solid #ddd;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1em;
+      margin-bottom: 1em;
+    }
+    
+    .stat-card {
+      background: #f8f9fa;
+      border-radius: 4px;
+      padding: 1em;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.5em;
+      font-weight: 700;
+      color: #333;
+      font-variant-numeric: tabular-nums;
+    }
+    
+    .stat-value.green { color: #10b981; }
+    .stat-value.amber { color: #F59E0B; }
+    .stat-value.red { color: #ef4444; }
+    .stat-value.purple { color: #6366f1; }
+    
+    .stat-label {
+      font-size: 0.85em;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25em;
+    }
+    
+    .progress-bar {
+      margin-top: 1em;
+      height: 8px;
+      background: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: #10b981;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
+    .visualization-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      margin-bottom: 1.5em;
+      font-size: 0.9em;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+    
+    .legend-swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+    }
+    
+    .legend-swatch.group-a {
+      background: #6366f1;
+    }
+    
+    .legend-swatch.group-b {
+      background: #10b981;
+    }
+    
+    .legend-swatch.empty {
+      background: #f8f9fa;
+    }
+    
+    .legend-swatch.unhappy {
+      background: #fee2e2;
+      border-color: #ef4444;
+      border-width: 2px;
+    }
+    
+    #grid-container {
+      display: inline-grid;
+      gap: 1px;
+      background: #f8f9fa;
+      padding: 4px;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+    
+    .cell {
+      border-radius: 2px;
+      transition: opacity 0.15s ease;
+    }
+    
+    .cell.empty {
+      background: #f8f9fa;
+      opacity: 0.5;
+    }
+    
+    .cell.group-a {
+      background: #6366f1;
+    }
+    
+    .cell.group-b {
+      background: #10b981;
+    }
+    
+    .cell.group-a.unhappy {
+      background: #6366f1;
+      border: 2px solid #ef4444;
+      animation: pulse-unhappy 1s ease-in-out infinite;
+    }
+    
+    .cell.group-b.unhappy {
+      background: #10b981;
+      border: 2px solid #ef4444;
+      animation: pulse-unhappy 1s ease-in-out infinite;
+    }
+    
+    @keyframes pulse-unhappy {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    .cell.diamond {
+      transform: rotate(45deg) scale(0.7);
+      border-radius: 2px;
+    }
+    
+    .info-text {
+      margin-top: 1.5em;
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    
+    .info-text strong {
+      color: #2563EB;
+    }
+    
+    footer {
+      margin-top: 2em;
+      text-align: center;
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Schelling Model of Segregation</h1>
+  
+  <div class="box">
+    <p>
+      This is an implementation of the Schelling model as described in Section 2.3 of the book
+      <a href="https://www.dinkla.net/complex-perspective/">The Complex Perspective - Introduction to Digital Economy</a>.
+    </p>
+    <p>
+      How small preferences lead to large patterns — an agent-based model of emergent segregation.
+    </p>
+  </div>
+  
+  <div class="container">
+    <!-- Control Panel -->
+    <div class="container-item">
+      <h2>Simulation Parameters</h2>
+      
+      <div class="control-row">
+        <div class="control-group">
+          <label>Width: <span id="width-value">40</span></label>
+          <input type="range" id="grid-width" min="10" max="80" value="40">
+        </div>
+        <div class="control-group">
+          <label>Height: <span id="height-value">30</span></label>
+          <input type="range" id="grid-height" min="10" max="60" value="30">
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <label>Empty Cells: <span id="empty-value">15</span>%</label>
+        <input type="range" id="empty-percent" min="5" max="40" value="15">
+      </div>
+      
+      <div class="control-group">
+        <label>Min. Same Neighbors: <span id="threshold-value">3</span> of 8</label>
+        <input type="range" id="threshold" min="0" max="8" value="3">
+        <div class="range-labels">
+          <span>Tolerant</span>
+          <span>Intolerant</span>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <label>Speed: <span id="speed-value">100</span>ms</label>
+        <input type="range" id="speed" min="20" max="500" value="100">
+      </div>
+      
+      <div class="control-group">
+        <label class="toggle-label" id="diamond-toggle">
+          <div class="toggle-track active" id="toggle-track">
+            <div class="toggle-thumb"></div>
+          </div>
+          Group A as Diamonds
+        </label>
+      </div>
+      
+      <div class="control">
+        <div class="buttonBar">
+          <button id="btn-start" class="btn-start">▶ Start</button>
+          <button id="btn-step" class="btn-step">⏭ Step</button>
+        </div>
+        <div class="buttonBar" style="margin-top: 10px;">
+          <button id="btn-reset" class="btn-reset">↻ Reset</button>
+        </div>
+      </div>
+      
+      <div class="stats-section">
+        <h2>Statistics</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value" id="stat-step">0</div>
+            <div class="stat-label">Step</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value" id="stat-moves">0</div>
+            <div class="stat-label">Moves</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value green" id="stat-happy">0%</div>
+            <div class="stat-label">Happy</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value purple" id="stat-segregation">0%</div>
+            <div class="stat-label">Segregation</div>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Visualization -->
+    <div class="container-item visualization-panel">
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-swatch group-a"></div>
+          <span>Group A</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch group-b"></div>
+          <span>Group B</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch empty"></div>
+          <span>Empty</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-swatch unhappy"></div>
+          <span>Unhappy</span>
+        </div>
+      </div>
+      
+      <div id="grid-container"></div>
+      
+      <p class="info-text">
+        Each agent wants at least <strong id="info-threshold">3 of 8</strong> similar 
+        neighbors. Unhappy agents move until everyone is happy or no 
+        free spaces are available.
+      </p>
+    </div>
+  </div>
+  
+  <footer>
+    <p>Based on Thomas Schelling's model (1971) · Implemented in JavaScript</p>
+  </footer>
+  
+  <script>
+    // State
+    let grid = [];
+    let isRunning = false;
+    let intervalId = null;
+    let showDiamonds = true;
+    let stats = { step: 0, happyPercentage: 0, avgSimilarity: 0, movesThisStep: 0 };
+    
+    // DOM Elements
+    const gridContainer = document.getElementById('grid-container');
+    const btnStart = document.getElementById('btn-start');
+    const btnStep = document.getElementById('btn-step');
+    const btnReset = document.getElementById('btn-reset');
+    const toggleTrack = document.getElementById('toggle-track');
+    
+    // Getters
+    const getGridWidth = () => parseInt(document.getElementById('grid-width').value);
+    const getGridHeight = () => parseInt(document.getElementById('grid-height').value);
+    const getEmptyPercent = () => parseInt(document.getElementById('empty-percent').value);
+    const getThreshold = () => parseInt(document.getElementById('threshold').value);
+    const getSpeed = () => parseInt(document.getElementById('speed').value);
+    
+    // Utility Functions
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    
+    function getNeighbors(x, y) {
+      const neighbors = [];
+      const height = grid.length;
+      const width = grid[0].length;
+      
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dx = -1; dx <= 1; dx++) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
+            neighbors.push(grid[ny][nx]);
+          }
+        }
+      }
+      return neighbors;
+    }
+    
+    function calculateSimilarity(cell, neighbors) {
+      if (cell.type === 'empty') return 1;
+      const sameType = neighbors.filter(n => n.type === cell.type).length;
+      const totalNeighbors = neighbors.filter(n => n.type !== 'empty').length;
+      return totalNeighbors === 0 ? 1 : sameType / totalNeighbors;
+    }
+    
+    function updateHappiness() {
+      const threshold = getThreshold();
+      grid.forEach((row, y) => {
+        row.forEach((cell, x) => {
+          if (cell.type !== 'empty') {
+            const neighbors = getNeighbors(x, y);
+            const sameType = neighbors.filter(n => n.type === cell.type).length;
+            cell.isHappy = sameType >= threshold;
+          }
+        });
+      });
+    }
+    
+    function calculateStats() {
+      let happy = 0, total = 0, totalSimilarity = 0;
+      
+      grid.forEach((row, y) => {
+        row.forEach((cell, x) => {
+          if (cell.type !== 'empty') {
+            total++;
+            if (cell.isHappy) happy++;
+            const neighbors = getNeighbors(x, y);
+            totalSimilarity += calculateSimilarity(cell, neighbors);
+          }
+        });
+      });
+      
+      stats.happyPercentage = total > 0 ? (happy / total) * 100 : 0;
+      stats.avgSimilarity = total > 0 ? totalSimilarity / total : 0;
+      updateStatsDisplay();
+    }
+    
+    function updateStatsDisplay() {
+      document.getElementById('stat-step').textContent = stats.step;
+      document.getElementById('stat-moves').textContent = stats.movesThisStep;
+      
+      const happyEl = document.getElementById('stat-happy');
+      happyEl.textContent = stats.happyPercentage.toFixed(1) + '%';
+      happyEl.className = 'stat-value ' + (stats.happyPercentage > 80 ? 'green' : stats.happyPercentage > 50 ? 'amber' : 'red');
+      
+      document.getElementById('stat-segregation').textContent = (stats.avgSimilarity * 100).toFixed(1) + '%';
+      document.getElementById('progress-fill').style.width = stats.happyPercentage + '%';
+    }
+    
+    // Initialize Grid
+    function initializeGrid() {
+      const width = getGridWidth();
+      const height = getGridHeight();
+      const emptyPercent = getEmptyPercent();
+      
+      const totalCells = width * height;
+      const emptyCells = Math.floor(totalCells * (emptyPercent / 100));
+      const agentCells = totalCells - emptyCells;
+      const groupACells = Math.floor(agentCells / 2);
+      
+      const cellTypes = [
+        ...Array(emptyCells).fill('empty'),
+        ...Array(groupACells).fill('group-a'),
+        ...Array(agentCells - groupACells).fill('group-b')
+      ];
+      
+      shuffle(cellTypes);
+      
+      grid = [];
+      let idx = 0;
+      for (let y = 0; y < height; y++) {
+        const row = [];
+        for (let x = 0; x < width; x++) {
+          row.push({
+            type: cellTypes[idx++],
+            isHappy: true,
+            x,
+            y
+          });
+        }
+        grid.push(row);
+      }
+      
+      updateHappiness();
+      stats = { step: 0, happyPercentage: 0, avgSimilarity: 0, movesThisStep: 0 };
+      calculateStats();
+      renderGrid();
+    }
+    
+    // Render Grid
+    function renderGrid() {
+      const width = grid[0].length;
+      const height = grid.length;
+      const cellSize = Math.min(16, Math.floor(800 / width));
+      
+      gridContainer.innerHTML = '';
+      gridContainer.style.gridTemplateColumns = `repeat(${width}, ${cellSize}px)`;
+      
+      grid.forEach((row, y) => {
+        row.forEach((cell, x) => {
+          const div = document.createElement('div');
+          div.className = 'cell ' + cell.type;
+          div.style.width = cellSize + 'px';
+          div.style.height = cellSize + 'px';
+          
+          if (cell.type !== 'empty' && !cell.isHappy) {
+            div.classList.add('unhappy');
+          }
+          
+          if (showDiamonds && cell.type === 'group-a') {
+            div.classList.add('diamond');
+          }
+          
+          gridContainer.appendChild(div);
+        });
+      });
+    }
+    
+    // Simulation Step
+    function simulateStep() {
+      const unhappy = [];
+      const empty = [];
+      
+      grid.forEach((row, y) => {
+        row.forEach((cell, x) => {
+          if (cell.type === 'empty') {
+            empty.push({ x, y });
+          } else if (!cell.isHappy) {
+            unhappy.push({ x, y });
+          }
+        });
+      });
+      
+      shuffle(unhappy);
+      
+      let moves = 0;
+      const maxMoves = Math.min(unhappy.length, empty.length, 50);
+      
+      for (let i = 0; i < maxMoves && empty.length > 0; i++) {
+        const agent = unhappy[i];
+        const emptyIdx = Math.floor(Math.random() * empty.length);
+        const emptyCell = empty[emptyIdx];
+        
+        const agentType = grid[agent.y][agent.x].type;
+        grid[emptyCell.y][emptyCell.x].type = agentType;
+        grid[emptyCell.y][emptyCell.x].isHappy = true;
+        grid[agent.y][agent.x].type = 'empty';
+        
+        empty.splice(emptyIdx, 1);
+        empty.push({ x: agent.x, y: agent.y });
+        
+        moves++;
+      }
+      
+      updateHappiness();
+      stats.step++;
+      stats.movesThisStep = moves;
+      calculateStats();
+      renderGrid();
+      
+      // Stop if everyone is happy
+      if (moves === 0 && isRunning) {
+        stopSimulation();
+      }
+    }
+    
+    // Control Functions
+    function startSimulation() {
+      isRunning = true;
+      btnStart.textContent = '⏸ Pause';
+      btnStart.className = 'btn-pause';
+      btnStep.disabled = true;
+      intervalId = setInterval(simulateStep, getSpeed());
+    }
+    
+    function stopSimulation() {
+      isRunning = false;
+      btnStart.textContent = '▶ Start';
+      btnStart.className = 'btn-start';
+      btnStep.disabled = false;
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    }
+    
+    // Event Listeners
+    btnStart.addEventListener('click', () => {
+      if (isRunning) {
+        stopSimulation();
+      } else {
+        startSimulation();
+      }
+    });
+    
+    btnStep.addEventListener('click', simulateStep);
+    
+    btnReset.addEventListener('click', () => {
+      stopSimulation();
+      initializeGrid();
+    });
+    
+    document.getElementById('diamond-toggle').addEventListener('click', () => {
+      showDiamonds = !showDiamonds;
+      toggleTrack.classList.toggle('active', showDiamonds);
+      renderGrid();
+    });
+    
+    // Range input updates
+    document.getElementById('grid-width').addEventListener('input', (e) => {
+      document.getElementById('width-value').textContent = e.target.value;
+    });
+    
+    document.getElementById('grid-height').addEventListener('input', (e) => {
+      document.getElementById('height-value').textContent = e.target.value;
+    });
+    
+    document.getElementById('empty-percent').addEventListener('input', (e) => {
+      document.getElementById('empty-value').textContent = e.target.value;
+    });
+    
+    document.getElementById('threshold').addEventListener('input', (e) => {
+      document.getElementById('threshold-value').textContent = e.target.value;
+      document.getElementById('info-threshold').textContent = e.target.value + ' of 8';
+    });
+    
+    document.getElementById('speed').addEventListener('input', (e) => {
+      document.getElementById('speed-value').textContent = e.target.value;
+      if (isRunning) {
+        clearInterval(intervalId);
+        intervalId = setInterval(simulateStep, getSpeed());
+      }
+    });
+    
+    // Initialize on load
+    initializeGrid();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugarscape - Watch Inequality Emerge from Simple Rules</title>
+    <link rel="stylesheet" href="css/dinkla-25.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .box {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 0.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+
+        @media (max-width: 1100px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .simulation-area {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+            background: #0a0a15;
+            border: 1px solid #ddd;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .btn-primary {
+            background: #2563EB;
+            color: white;
+            border-color: #2563EB;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 20px;
+        }
+
+        .panel h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 0.5em;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2563EB;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .slider-group {
+            margin-bottom: 15px;
+        }
+
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .slider-group input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #e9ecef;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #2563EB;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .slider-group input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+
+        .slider-group input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #2563EB;
+            cursor: pointer;
+            border: none;
+        }
+
+        .wealth-chart {
+            height: 120px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-left: 4px solid #2563EB;
+            padding: 15px;
+            border-radius: 0 4px 4px 0;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-group label {
+            color: #333;
+            cursor: pointer;
+        }
+
+        .speed-indicator {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #2563EB;
+            text-decoration: none;
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+        }
+
+        .gini-meter {
+            height: 20px;
+            background: linear-gradient(90deg, #10b981, #F59E0B, #ef4444);
+            border-radius: 4px;
+            position: relative;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .gini-marker {
+            position: absolute;
+            width: 4px;
+            height: 28px;
+            background: #333;
+            top: -4px;
+            border-radius: 2px;
+            transition: left 0.3s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .gini-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🍬 Sugarscape</h1>
+    
+    <div class="box">
+        <p>
+            This is an implementation of the Sugarscape model as described in the book
+            <a href="https://www.dinkla.net/complex-perspective/">The Complex Perspective - Introduction to Digital Economy</a>.
+        </p>
+        <p class="subtitle">
+            Watch a tiny artificial society emerge from absurdly simple rules. 
+            No one is "unfair" here – agents just wander around eating sugar. 
+            Yet somehow, wealth inequality magically appears. Spooky, right?
+        </p>
+    </div>
+    
+    <div class="container">
+
+        <div class="main-layout">
+            <div class="simulation-area">
+                <canvas id="canvas" width="500" height="500"></canvas>
+                <div class="controls">
+                    <button id="startBtn" class="btn-primary">▶ Start</button>
+                    <button id="stepBtn" class="btn-secondary">⏭ Step</button>
+                    <button id="resetBtn" class="btn-danger">↺ Reset</button>
+                </div>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: linear-gradient(135deg, #1a1a1a, #3a3a3a)"></div>
+                        <span>No Sugar</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f4d03f"></div>
+                        <span>Sugar (brighter = more)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e74c3c"></div>
+                        <span>Agent (size = wealth)</span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <p>
+                        <strong>What's happening?</strong> Each red dot is an agent with random vision (how far they can see) 
+                        and metabolism (how much sugar they burn per step). They look around, move to the sweetest 
+                        spot they can find, harvest the sugar, and hope they don't starve. The sugar slowly grows back.
+                        Over time, some agents get rich, others... don't make it. 🎲
+                    </p>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="panel">
+                    <h2>📊 Live Stats</h2>
+                    <div class="stat-grid">
+                        <div class="stat">
+                            <div class="stat-value" id="stepCount">0</div>
+                            <div class="stat-label">Time Steps</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="agentCount">0</div>
+                            <div class="stat-label">Population</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="avgWealth">0</div>
+                            <div class="stat-label">Avg Wealth</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="maxWealth">0</div>
+                            <div class="stat-label">Richest Agent</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px;">
+                        <label>Gini Coefficient (Inequality)</label>
+                        <div class="gini-meter">
+                            <div class="gini-marker" id="giniMarker"></div>
+                        </div>
+                        <div class="gini-labels">
+                            <span>0 (Equal)</span>
+                            <span id="giniValue">0.00</span>
+                            <span>1 (Unequal)</span>
+                        </div>
+                    </div>
+
+                    <div class="wealth-chart">
+                        <canvas id="wealthChart" width="310" height="120"></canvas>
+                    </div>
+                    <div style="text-align: center; font-size: 0.8rem; color: #666; margin-top: 5px;">
+                        Wealth Distribution (Pareto vibes incoming...)
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>⚙️ Settings</h2>
+                    
+                    <div class="slider-group">
+                        <label>
+                            <span class="tooltip" data-tip="How many agents start the simulation">Initial Agents</span>
+                            <span id="agentCountVal">200</span>
+                        </label>
+                        <input type="range" id="initialAgents" min="50" max="400" value="200">
+                    </div>
+
+                    <div class="slider-group">
+                        <label>
+                            <span class="tooltip" data-tip="Units of sugar grown back per step (0 = no regrowth)">Sugar Regrowth</span>
+                            <span id="regrowthVal">1</span>
+                        </label>
+                        <input type="range" id="regrowthRate" min="0" max="4" value="1">
+                    </div>
+
+                    <div class="slider-group">
+                        <label>
+                            <span class="tooltip" data-tip="Higher = faster simulation">Speed</span>
+                            <span id="speedVal">Normal</span>
+                        </label>
+                        <input type="range" id="speed" min="1" max="5" value="3">
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="showVision">
+                        <label for="showVision">Show agent vision (hover)</label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="replacement" checked>
+                        <label for="replacement">Replace dead agents</label>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>💡 The Big Insight</h2>
+                    <p style="font-size: 0.9rem; line-height: 1.7; color: #333;">
+                        This model was created by <strong>Joshua Epstein</strong> and <strong>Robert Axtell</strong> 
+                        in 1996 to show how complex social phenomena emerge from simple individual behaviors. 
+                        <br><br>
+                        Nobody in this simulation is being "unfair" – they're all following identical rules. 
+                        Yet inequality emerges naturally from differences in initial conditions (luck!) 
+                        and individual traits (vision, metabolism).
+                        <br><br>
+                        That Pareto distribution you'll see in the wealth chart? That's the same pattern 
+                        Vilfredo Pareto found when studying real incomes in Italy. 🤯
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Based on "Growing Artificial Societies" by Epstein & Axtell (1996) • 
+            Built for exploring <a href="#">complex systems</a> thinking
+        </footer>
+    </div>
+
+    <script>
+        // ============================================================
+        // SUGARSCAPE SIMULATION
+        // ============================================================
+        
+        // Agent structure: { id, x, y, vision, metabolism, wealth, maxAge, age, alive }
+        // Cell structure: { sugar, maxSugar }
+
+        // Configuration
+        const CONFIG = {
+            gridSize: 50,
+            cellSize: 10,
+            initialAgents: 200,
+            regrowthRate: 1,
+            visionRange: [1, 6],
+            metabolismRange: [1, 4],
+            maxAgeRange: [60, 100],
+            initialSugarRange: [5, 25],
+        };
+
+        // State
+        let grid = [];
+        let agents = [];
+        let stepCount = 0;
+        let running = false;
+        let animationId = null;
+        let hoveredAgent = null;
+        let lastFrameTime = 0;
+        const frameIntervals = [200, 100, 50, 20, 5]; // Speed settings
+
+        // Canvas setup
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const wealthCanvas = document.getElementById('wealthChart');
+        const wealthCtx = wealthCanvas.getContext('2d');;
+
+        // ============================================================
+        // INITIALIZATION
+        // ============================================================
+
+        function createSugarLandscape() {
+            const grid = [];
+            
+            // Two sugar peaks like in original Sugarscape
+            const peak1 = { x: 15, y: 15 };
+            const peak2 = { x: 35, y: 35 };
+            
+            for (let y = 0; y < CONFIG.gridSize; y++) {
+                grid[y] = [];
+                for (let x = 0; x < CONFIG.gridSize; x++) {
+                    // Distance from peaks
+                    const d1 = Math.sqrt((x - peak1.x) ** 2 + (y - peak1.y) ** 2);
+                    const d2 = Math.sqrt((x - peak2.x) ** 2 + (y - peak2.y) ** 2);
+                    const minDist = Math.min(d1, d2);
+                    
+                    // Sugar capacity based on distance from nearest peak
+                    let maxSugar = 0;
+                    if (minDist < 5) maxSugar = 4;
+                    else if (minDist < 10) maxSugar = 3;
+                    else if (minDist < 15) maxSugar = 2;
+                    else if (minDist < 20) maxSugar = 1;
+                    
+                    grid[y][x] = {
+                        sugar: maxSugar,
+                        maxSugar: maxSugar
+                    };
+                }
+            }
+            return grid;
+        }
+
+        function createAgent(id) {
+            let x, y;
+            let attempts = 0;
+            
+            // Find empty cell
+            do {
+                x = Math.floor(Math.random() * CONFIG.gridSize);
+                y = Math.floor(Math.random() * CONFIG.gridSize);
+                attempts++;
+            } while (isOccupied(x, y) && attempts < 1000);
+
+            return {
+                id,
+                x,
+                y,
+                vision: randomInt(...CONFIG.visionRange),
+                metabolism: randomInt(...CONFIG.metabolismRange),
+                wealth: randomInt(...CONFIG.initialSugarRange),
+                maxAge: randomInt(...CONFIG.maxAgeRange),
+                age: 0,
+                alive: true
+            };
+        }
+
+        function isOccupied(x, y) {
+            return agents.some(a => a.alive && a.x === x && a.y === y);
+        }
+
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function initSimulation() {
+            CONFIG.initialAgents = parseInt(document.getElementById('initialAgents').value);
+            CONFIG.regrowthRate = parseInt(document.getElementById('regrowthRate').value);
+            
+            grid = createSugarLandscape();
+            agents = [];
+            
+            for (let i = 0; i < CONFIG.initialAgents; i++) {
+                agents.push(createAgent(i));
+            }
+            
+            stepCount = 0;
+            updateStats();
+            render();
+        }
+
+        // ============================================================
+        // SIMULATION LOGIC - The Heart of Sugarscape
+        // ============================================================
+
+        function step() {
+            // 1. Sugar regrowth
+            for (let y = 0; y < CONFIG.gridSize; y++) {
+                for (let x = 0; x < CONFIG.gridSize; x++) {
+                    const cell = grid[y][x];
+                    cell.sugar = Math.min(cell.sugar + CONFIG.regrowthRate, cell.maxSugar);
+                }
+            }
+
+            // 2. Shuffle agents for random activation order (important!)
+            const shuffled = [...agents.filter(a => a.alive)].sort(() => Math.random() - 0.5);
+
+            // 3. Each agent takes their turn
+            for (const agent of shuffled) {
+                if (!agent.alive) continue;
+                
+                // Look around (cardinal directions only - that's the rule!)
+                const visible = getVisibleCells(agent);
+                
+                // Find best cell with most sugar
+                let bestCell = { x: agent.x, y: agent.y, sugar: grid[agent.y][agent.x].sugar };
+                
+                for (const cell of visible) {
+                    if (cell.sugar > bestCell.sugar && !isOccupied(cell.x, cell.y)) {
+                        bestCell = cell;
+                    } else if (cell.sugar === bestCell.sugar && !isOccupied(cell.x, cell.y)) {
+                        // If equal sugar, prefer closer cell
+                        const currentDist = Math.abs(agent.x - bestCell.x) + Math.abs(agent.y - bestCell.y);
+                        const newDist = Math.abs(agent.x - cell.x) + Math.abs(agent.y - cell.y);
+                        if (newDist < currentDist) {
+                            bestCell = cell;
+                        }
+                    }
+                }
+
+                // Move to best cell
+                agent.x = bestCell.x;
+                agent.y = bestCell.y;
+
+                // Harvest sugar
+                agent.wealth += grid[agent.y][agent.x].sugar;
+                grid[agent.y][agent.x].sugar = 0;
+
+                // Metabolism burns sugar
+                agent.wealth -= agent.metabolism;
+
+                // Age
+                agent.age++;
+
+                // Death check
+                if (agent.wealth <= 0 || agent.age >= agent.maxAge) {
+                    agent.alive = false;
+                }
+            }
+
+            // 4. Replace dead agents if enabled
+            const replacement = document.getElementById('replacement').checked;
+            if (replacement) {
+                const deadCount = agents.filter(a => !a.alive).length;
+                for (let i = 0; i < deadCount; i++) {
+                    const newAgent = createAgent(agents.length);
+                    agents.push(newAgent);
+                }
+                // Remove dead agents to keep array clean
+                agents = agents.filter(a => a.alive);
+            }
+
+            stepCount++;
+            updateStats();
+        }
+
+        function getVisibleCells(agent) {
+            const cells = [];
+            const directions = [
+                { dx: 0, dy: -1 }, // North
+                { dx: 0, dy: 1 },  // South
+                { dx: -1, dy: 0 }, // West
+                { dx: 1, dy: 0 }   // East
+            ];
+
+            for (const dir of directions) {
+                for (let dist = 1; dist <= agent.vision; dist++) {
+                    const nx = agent.x + dir.dx * dist;
+                    const ny = agent.y + dir.dy * dist;
+                    
+                    // Check bounds (no wrapping in this implementation)
+                    if (nx >= 0 && nx < CONFIG.gridSize && ny >= 0 && ny < CONFIG.gridSize) {
+                        cells.push({
+                            x: nx,
+                            y: ny,
+                            sugar: grid[ny][nx].sugar
+                        });
+                    }
+                }
+            }
+            return cells;
+        }
+
+        // ============================================================
+        // RENDERING
+        // ============================================================
+
+        function render() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw grid cells
+            for (let y = 0; y < CONFIG.gridSize; y++) {
+                for (let x = 0; x < CONFIG.gridSize; x++) {
+                    const cell = grid[y][x];
+                    const px = x * CONFIG.cellSize;
+                    const py = y * CONFIG.cellSize;
+
+                    if (cell.maxSugar === 0) {
+                        ctx.fillStyle = '#1a1a2a';
+                    } else {
+                        // Yellow gradient based on sugar level
+                        const intensity = cell.sugar / 4;
+                        const r = Math.floor(244 * intensity);
+                        const g = Math.floor(208 * intensity);
+                        const b = Math.floor(63 * intensity);
+                        ctx.fillStyle = `rgb(${Math.max(30, r)}, ${Math.max(30, g)}, ${Math.max(20, b)})`;
+                    }
+                    
+                    ctx.fillRect(px, py, CONFIG.cellSize - 1, CONFIG.cellSize - 1);
+                }
+            }
+
+            // Draw vision for hovered agent
+            const showVision = document.getElementById('showVision').checked;
+            if (showVision && hoveredAgent && hoveredAgent.alive) {
+                ctx.fillStyle = 'rgba(231, 76, 60, 0.2)';
+                const visible = getVisibleCells(hoveredAgent);
+                for (const cell of visible) {
+                    ctx.fillRect(
+                        cell.x * CONFIG.cellSize,
+                        cell.y * CONFIG.cellSize,
+                        CONFIG.cellSize - 1,
+                        CONFIG.cellSize - 1
+                    );
+                }
+            }
+
+            // Draw agents
+            for (const agent of agents) {
+                if (!agent.alive) continue;
+                
+                const px = agent.x * CONFIG.cellSize + CONFIG.cellSize / 2;
+                const py = agent.y * CONFIG.cellSize + CONFIG.cellSize / 2;
+                
+                // Size based on wealth (clamped)
+                const size = Math.min(2 + agent.wealth / 15, CONFIG.cellSize / 2);
+                
+                // Color gradient based on wealth
+                const wealthRatio = Math.min(agent.wealth / 100, 1);
+                const r = 231;
+                const g = Math.floor(76 + 100 * wealthRatio);
+                const b = Math.floor(60 + 100 * wealthRatio);
+                
+                ctx.beginPath();
+                ctx.arc(px, py, size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
+                ctx.fill();
+                
+                // Highlight hovered agent
+                if (hoveredAgent === agent) {
+                    ctx.strokeStyle = 'white';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+            }
+
+            renderWealthChart();
+        }
+
+        function renderWealthChart() {
+            wealthCtx.clearRect(0, 0, wealthCanvas.width, wealthCanvas.height);
+            
+            const aliveAgents = agents.filter(a => a.alive);
+            if (aliveAgents.length === 0) return;
+
+            // Create wealth buckets
+            const maxWealth = Math.max(...aliveAgents.map(a => a.wealth), 1);
+            const bucketCount = 20;
+            const bucketSize = Math.ceil(maxWealth / bucketCount);
+            const buckets = new Array(bucketCount).fill(0);
+
+            for (const agent of aliveAgents) {
+                const bucket = Math.min(Math.floor(agent.wealth / bucketSize), bucketCount - 1);
+                buckets[bucket]++;
+            }
+
+            const maxCount = Math.max(...buckets, 1);
+            const barWidth = wealthCanvas.width / bucketCount;
+
+            // Draw bars
+            for (let i = 0; i < bucketCount; i++) {
+                const height = (buckets[i] / maxCount) * (wealthCanvas.height - 20);
+                const x = i * barWidth;
+                const y = wealthCanvas.height - height - 10;
+
+                const gradient = wealthCtx.createLinearGradient(x, y + height, x, y);
+                gradient.addColorStop(0, '#f39c12');
+                gradient.addColorStop(1, '#e74c3c');
+                
+                wealthCtx.fillStyle = gradient;
+                wealthCtx.fillRect(x + 1, y, barWidth - 2, height);
+            }
+
+            // Labels
+            wealthCtx.fillStyle = '#666';
+            wealthCtx.font = '10px sans-serif';
+            wealthCtx.fillText('Poor', 5, wealthCanvas.height - 2);
+            wealthCtx.fillText('Rich', wealthCanvas.width - 25, wealthCanvas.height - 2);
+        }
+
+        // ============================================================
+        // STATISTICS
+        // ============================================================
+
+        function updateStats() {
+            const aliveAgents = agents.filter(a => a.alive);
+            const count = aliveAgents.length;
+            
+            document.getElementById('stepCount').textContent = stepCount.toString();
+            document.getElementById('agentCount').textContent = count.toString();
+
+            if (count > 0) {
+                const totalWealth = aliveAgents.reduce((sum, a) => sum + a.wealth, 0);
+                const avgWealth = totalWealth / count;
+                const maxWealth = Math.max(...aliveAgents.map(a => a.wealth));
+                
+                document.getElementById('avgWealth').textContent = avgWealth.toFixed(1);
+                document.getElementById('maxWealth').textContent = maxWealth.toString();
+
+                // Calculate Gini coefficient
+                const gini = calculateGini(aliveAgents.map(a => a.wealth));
+                document.getElementById('giniValue').textContent = gini.toFixed(3);
+                document.getElementById('giniMarker').style.left = `${gini * 100}%`;
+            } else {
+                document.getElementById('avgWealth').textContent = '0';
+                document.getElementById('maxWealth').textContent = '0';
+                document.getElementById('giniValue').textContent = '0.00';
+            }
+        }
+
+        function calculateGini(values) {
+            if (values.length === 0) return 0;
+            
+            const sorted = [...values].sort((a, b) => a - b);
+            const n = sorted.length;
+            const mean = sorted.reduce((a, b) => a + b, 0) / n;
+            
+            if (mean === 0) return 0;
+
+            let sumDiff = 0;
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < n; j++) {
+                    sumDiff += Math.abs(sorted[i] - sorted[j]);
+                }
+            }
+            
+            return sumDiff / (2 * n * n * mean);
+        }
+
+        // ============================================================
+        // ANIMATION LOOP
+        // ============================================================
+
+        function gameLoop(timestamp) {
+            if (!running) return;
+
+            const speedSetting = parseInt(document.getElementById('speed').value);
+            const interval = frameIntervals[speedSetting - 1];
+
+            if (timestamp - lastFrameTime >= interval) {
+                step();
+                render();
+                lastFrameTime = timestamp;
+            }
+
+            animationId = requestAnimationFrame(gameLoop);
+        }
+
+        function start() {
+            if (running) return;
+            running = true;
+            lastFrameTime = performance.now();
+            animationId = requestAnimationFrame(gameLoop);
+            document.getElementById('startBtn').textContent = '⏸ Pause';
+        }
+
+        function pause() {
+            running = false;
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+            }
+            document.getElementById('startBtn').textContent = '▶ Start';
+        }
+
+        function toggle() {
+            if (running) {
+                pause();
+            } else {
+                start();
+            }
+        }
+
+        // ============================================================
+        // EVENT HANDLERS
+        // ============================================================
+
+        document.getElementById('startBtn').addEventListener('click', toggle);
+        document.getElementById('stepBtn').addEventListener('click', () => {
+            pause();
+            step();
+            render();
+        });
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            pause();
+            initSimulation();
+        });
+
+        // Slider value displays
+        document.getElementById('initialAgents').addEventListener('input', (e) => {
+            document.getElementById('agentCountVal').textContent = e.target.value;
+        });
+        document.getElementById('regrowthRate').addEventListener('input', (e) => {
+            const val = e.target.value;
+            document.getElementById('regrowthVal').textContent = val;
+            CONFIG.regrowthRate = parseInt(val);
+        });
+        document.getElementById('speed').addEventListener('input', (e) => {
+            const speeds = ['Slow', 'Slower', 'Normal', 'Fast', 'Ludicrous'];
+            document.getElementById('speedVal').textContent = speeds[parseInt(e.target.value) - 1];
+        });
+
+        // Mouse tracking for agent hover
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.floor((e.clientX - rect.left) / CONFIG.cellSize);
+            const y = Math.floor((e.clientY - rect.top) / CONFIG.cellSize);
+            
+            hoveredAgent = agents.find(a => a.alive && a.x === x && a.y === y) || null;
+            
+            if (!running) render();
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            hoveredAgent = null;
+            if (!running) render();
+        });
+
+        // ============================================================
+        // START THE PARTY
+        // ============================================================
+
+        initSimulation();
+        console.log('🍬 Sugarscape initialized! Click Start to watch inequality emerge.');
+    </script>
+</body>
+</html>
