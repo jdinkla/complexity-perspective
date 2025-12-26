@@ -91,3 +91,14 @@ dist:
     @echo "Distribution created in dist/ directory"
     @echo "To serve: cd dist && python3 -m http.server 8000"
 
+# Prepare Jekyll site (builds dist and copies to _site)
+jekyll-build:
+    @echo "Building distribution..."
+    @just dist
+    @echo "Preparing Jekyll site..."
+    @rm -rf _site
+    @mkdir -p _site
+    @cp -r dist/* _site/
+    @echo "Jekyll site ready in _site/ directory"
+    @echo "You can now commit _site/ or deploy it"
+

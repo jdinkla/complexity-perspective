@@ -1,0 +1,33 @@
+# Jekyll configuration for GitHub Pages
+# This allows the dist folder to be served via Jekyll
+
+# Site settings
+title: "Complexity Perspective"
+description: "Simulations for The Complex Perspective - Introduction to Digital Economy"
+
+# Build settings
+source: dist
+destination: _site
+
+# Exclude from processing
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - justfile
+  - pubspec.yaml
+  - pubspec.lock
+  - test/
+  - lib/
+  - web/
+  - build/
+  - db/
+  - .dart_tool/
+  - .github/
+
+# Plugins (minimal for static site)
+plugins: []
+
+# Markdown processor (not needed for static HTML)
+markdown: kramdown
+

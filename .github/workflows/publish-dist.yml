@@ -1,0 +1,64 @@
+name: Publish dist to separate branch
+
+# Alternative workflow: Publishes dist folder to a 'published' branch
+# This branch can be used as a git submodule or referenced by other projects
+# To use: Uncomment this workflow and configure your other project to reference it
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper branch operations
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.0.0'
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Build project
+        run: |
+          mkdir -p build
+          dart compile js web/main.dart -o build/main.dart.js
+          dart compile js web/einfaches_system_web.dart -o build/einfaches_system_web.dart.js
+          dart compile js web/kompliziertes_system_web.dart -o build/kompliziertes_system_web.dart.js
+          dart compile js web/segregation_web.dart -o build/segregation_web.dart.js
+
+      - name: Create distribution
+        run: |
+          mkdir -p dist/web dist/build
+          cp web/*.html dist/web/
+          cp build/*.js dist/build/
+
+      - name: Checkout published branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan published || git checkout published
+          git rm -rf . || true
+
+      - name: Copy dist files
+        run: |
+          cp -r dist/* .
+          git add .
+
+      - name: Commit and push
+        run: |
+          git commit -m "Update published files from ${{ github.sha }}" || exit 0
+          git push origin published --force
+

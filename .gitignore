@@ -6,6 +6,9 @@ build/
 pubspec.lock
 dist/
 
+# Jekyll (uncomment _site/ if you want to commit it for GitHub Pages)
+# _site/
+
 # Compiled JavaScript files
 *.dart.js
 *.dart.js.map
