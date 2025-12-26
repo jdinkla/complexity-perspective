@@ -5,7 +5,7 @@
  * Ein Kreis bzw. ein "Planet". Siehe Abschnitt 2.3 im Buch.
  */
 
-import 'vector.dart';
+import 'package:complexity_perspective/core/vector.dart';
 
 class Circle {
 

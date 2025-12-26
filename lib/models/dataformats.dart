@@ -5,8 +5,8 @@
  * Die verschiedenen Datenformate aus Kapitel 6.
  */
 
-import 'circle.dart';
-import 'vector.dart';
+import 'package:complexity_perspective/models/circle.dart';
+import 'package:complexity_perspective/core/vector.dart';
 import 'dart:convert';
 
 class ConvCircle extends Circle {

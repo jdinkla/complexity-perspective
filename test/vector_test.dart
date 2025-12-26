@@ -9,7 +9,7 @@
  */
 
 import 'package:test/test.dart';
-import '../web/vector.dart';
+import 'package:complexity_perspective/core/vector.dart';
 
 void main() {
   group("Vector", () {

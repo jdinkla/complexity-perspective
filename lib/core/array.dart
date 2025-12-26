@@ -11,7 +11,7 @@
  *
  */
 
-import 'coordinates.dart';
+import 'package:complexity_perspective/core/coordinates.dart';
 
 class Array<T> {
 

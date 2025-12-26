@@ -5,8 +5,8 @@
  * Code für das einfache System in Abschnitt 2.3
  */
 
-import 'vector.dart';
-import 'circle.dart';
+import 'package:complexity_perspective/core/vector.dart';
+import 'package:complexity_perspective/models/circle.dart';
 
 init() {
   var u, v, w;

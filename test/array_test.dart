@@ -9,7 +9,7 @@
  */
 
 import 'package:test/test.dart';
-import '../web/array.dart';
+import 'package:complexity_perspective/core/array.dart';
 
 void main() {
   group("Array", () {

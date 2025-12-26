@@ -11,8 +11,8 @@
  *
  */
 
-import 'array.dart';
-import 'coordinate.dart';
+import 'package:complexity_perspective/core/array.dart';
+import 'package:complexity_perspective/core/coordinate.dart';
 import 'dart:math' show Random;
 
 class Cells<T> extends Array<T> {

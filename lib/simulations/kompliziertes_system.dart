@@ -5,8 +5,8 @@
  * Code für das komplizierte System mit Schwerkraft in Abschnitt 2.3
  */
 
-import 'vector.dart';
-import 'circle2.dart';
+import 'package:complexity_perspective/core/vector.dart';
+import 'package:complexity_perspective/models/circle2.dart';
 
 simulation() {
   var u = new Circle2(color: "blau", mass: 3, position: new Vector(2, 1), velocity: new Vector(2, 0));

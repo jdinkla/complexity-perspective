@@ -5,10 +5,10 @@
  * Code für das Schelling-Modell in Abschnitt 2.3
  */
 
-import 'cells.dart';
-import 'Distribution.dart';
-import 'coordinates.dart';
-import 'coordinate.dart';
+import 'package:complexity_perspective/core/cells.dart';
+import 'package:complexity_perspective/core/Distribution.dart';
+import 'package:complexity_perspective/core/coordinates.dart';
+import 'package:complexity_perspective/core/coordinate.dart';
 
 enum Color {
   empty,

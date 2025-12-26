@@ -6,8 +6,8 @@
  */
 
 import 'dart:html';
-import 'vector.dart';
-import 'circle.dart';
+import 'package:complexity_perspective/core/vector.dart';
+import 'package:complexity_perspective/models/circle.dart';
 import 'dart:math' as math;
 
 typedef List<Circle> mkModel();

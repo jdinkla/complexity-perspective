@@ -14,9 +14,14 @@ This is a Dart web application containing simulations for the book "Die ‚kompl
 
 ```
 complexity-perspective/
+├── build/            # Compiled JavaScript files (generated, git-ignored)
 ├── web/              # Web application code and HTML files
 │   ├── *.dart        # Dart source files
 │   └── *.html        # HTML entry points
+├── lib/              # Dart library code
+│   ├── core/         # Core data structures
+│   ├── models/       # Simulation models
+│   └── simulations/  # Simulation implementations
 ├── test/             # Unit tests
 ├── db/               # Database scripts (Neo4j, CouchDB)
 ├── pubspec.yaml      # Dart project configuration
@@ -150,12 +155,14 @@ When encountering null safety errors:
 ### Building for Production
 
 ```bash
-# Compile all Dart files to JavaScript
+# Compile all Dart files to JavaScript (outputs to top-level build/ folder)
 just build
 
-# Clean build artifacts
+# Clean build artifacts (removes build/ folder)
 just clean
 ```
+
+**Note**: Compiled JavaScript files are placed in the top-level `build/` directory. HTML files reference these files using `../build/` paths.
 
 ### Running Locally
 
@@ -187,10 +194,11 @@ The following patterns were used in Dart 1.x but are now deprecated:
 
 ### Web Compatibility
 
-- HTML files reference Dart files directly (legacy pattern)
-- For production, compile to JavaScript with `dart compile js`
+- HTML files reference compiled JavaScript files from `../build/` directory
+- For production, compile to JavaScript with `dart compile js` (outputs to top-level `build/` folder)
 - The project uses `dart:html` for browser APIs
 - Old `browser` package has been removed (use `dart:html` directly)
+- Build artifacts are stored in the top-level `build/` directory (not `web/build/`)
 
 ## File Naming
 
@@ -246,4 +254,5 @@ When working on this codebase:
 3. **Does this override `==`?** → Must accept `Object?`
 4. **Is this a List initialization?** → Use `List.filled()` or `List.generate()`
 5. **Does this need a test?** → Yes, add one in `test/`
+
 

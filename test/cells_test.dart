@@ -9,8 +9,8 @@
  */
 
 import 'package:test/test.dart';
-import '../web/cells.dart';
-import '../web/coordinate.dart';
+import 'package:complexity_perspective/core/cells.dart';
+import 'package:complexity_perspective/core/coordinate.dart';
 
 void main() {
 

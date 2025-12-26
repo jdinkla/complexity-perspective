@@ -5,7 +5,7 @@
  * Code für das einfache System in Abschnitt 2.3
  */
 
-import 'segregation.dart';
+import 'package:complexity_perspective/simulations/segregation.dart';
 
 class SegregationConsole extends Segregation {
 

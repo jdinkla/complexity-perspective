@@ -9,7 +9,7 @@
  */
 
 import 'package:test/test.dart';
-import '../web/Distribution.dart';
+import 'package:complexity_perspective/core/Distribution.dart';
 
 void main() {
 

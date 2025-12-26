@@ -5,8 +5,8 @@
  * Code für das Schelling-Modell in Abschnitt 2.3
  */
 
-import 'segregation.dart';
 import 'dart:html';
+import 'package:complexity_perspective/simulations/segregation.dart';
 
 late NumberInputElement nieNumCellsX;
 late NumberInputElement nieNumCellsY;

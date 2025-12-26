@@ -5,10 +5,10 @@
  * Code für das einfache Modell in Abschnitt 2.3.
  */
 
-import 'vector.dart';
 import 'dart:html';
-import 'circle.dart';
-import 'physics.dart';
+import 'package:complexity_perspective/core/vector.dart';
+import 'package:complexity_perspective/models/circle.dart';
+import 'package:complexity_perspective/models/physics.dart';
 
 List<Circle> getModel() {
   var u = new Circle(color: "#1E2D5B", mass: 3, position: new Vector(2, 1), velocity: new Vector(2, 0));

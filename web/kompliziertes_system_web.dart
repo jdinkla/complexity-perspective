@@ -6,9 +6,9 @@
  */
 
 import 'dart:html';
-import 'vector.dart';
-import 'circle2.dart';
-import 'physics.dart';
+import 'package:complexity_perspective/core/vector.dart';
+import 'package:complexity_perspective/models/circle2.dart';
+import 'package:complexity_perspective/models/physics.dart';
 
 List<Circle2> getModel2() {
   var u = new Circle2(color: "#1E2D5B", mass: 3, position: new Vector(2, 1), velocity: new Vector(2, 0));

@@ -8,7 +8,7 @@
  *
  */
 
-import 'coordinate.dart';
+import 'package:complexity_perspective/core/coordinate.dart';
 
 class Coordinates {
 

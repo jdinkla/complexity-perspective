@@ -5,8 +5,8 @@
  * Ein Kreis bzw. ein "Planet" mit Schwerkraft. Siehe Abschnitt 2.3 im Buch.
  */
 
-import 'vector.dart';
-import 'circle.dart';
+import 'package:complexity_perspective/core/vector.dart';
+import 'package:complexity_perspective/models/circle.dart';
 import 'dart:math';
 
 num softeningSquared = 0.0;
